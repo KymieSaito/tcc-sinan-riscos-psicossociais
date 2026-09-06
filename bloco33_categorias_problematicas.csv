@@ -1,0 +1,20 @@
+﻿VARIAVEL,CATEGORIA,FAVORAVEL,DESFAVORAVEL,TOTAL,PCT_DESFAVORAVEL,MENOR_CELULA,CELULA_ZERO,MENOR_5,MENOR_10
+CS_SEXO,I,0,1,1,1.0,0,True,True,True
+CS_ESCOL_N,00,2,33,35,0.9428571428571428,2,False,True,True
+SG_UF,28,6,66,72,0.9166666666666666,6,False,False,True
+SG_UF,21,5,61,66,0.9242424242424242,5,False,False,True
+SG_UF,53,8,48,56,0.8571428571428571,8,False,False,True
+SG_UF,11,7,48,55,0.8727272727272727,7,False,False,True
+SG_UF,51,8,25,33,0.7575757575757576,8,False,False,True
+SG_UF,12,3,9,12,0.75,3,False,True,True
+SG_UF,22,1,11,12,0.9166666666666666,1,False,True,True
+SG_UF,32,2,4,6,0.6666666666666666,2,False,True,True
+SIT_TRAB,09,8,25,33,0.7575757575757576,8,False,False,True
+SIT_TRAB,10,16,7,23,0.30434782608695654,7,False,False,True
+SIT_TRAB,11,6,6,12,0.5,6,False,False,True
+CID_GRUPO_MODELO,F0 — Transtornos mentais orgânicos,9,77,86,0.8953488372093024,9,False,False,True
+CID_GRUPO_MODELO,F1 — Transtornos por substâncias psicoativas,8,57,65,0.8769230769230769,8,False,False,True
+CID_GRUPO_MODELO,F6 — Transtornos da personalidade e comportamento,9,35,44,0.7954545454545454,9,False,False,True
+CID_GRUPO_MODELO,F5 — Síndromes comportamentais associadas a fatores físicos,3,17,20,0.85,3,False,True,True
+CID_GRUPO_MODELO,F7 — Deficiência intelectual,2,5,7,0.7142857142857143,2,False,True,True
+CID_GRUPO_MODELO,F8 — Transtornos do desenvolvimento psicológico,3,3,6,0.5,3,False,True,True

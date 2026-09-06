@@ -1,0 +1,12 @@
+numpy
+pandas
+scipy
+scikit-learn
+xgboost
+lightgbm
+statsmodels
+matplotlib
+pyarrow
+openpyxl
+jupyter
+ipykernel

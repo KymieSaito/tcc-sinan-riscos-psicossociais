@@ -1,0 +1,22 @@
+Coluna,Tipo,Missing,Percentual (%),Valores_Unicos
+status_conta_corrente,int64,0,0.0,4
+duracao_credito_meses,int64,0,0.0,33
+historico_credito,int64,0,0.0,5
+proposito_credito,int64,0,0.0,10
+valor_credito_dm,int64,0,0.0,923
+conta_poupanca,int64,0,0.0,5
+tempo_emprego_anos,int64,0,0.0,5
+taxa_parcelamento,int64,0,0.0,4
+estado_civil_sexo,int64,0,0.0,4
+fiador,int64,0,0.0,3
+tempo_residencia_atual,int64,0,0.0,4
+propriedade,int64,0,0.0,4
+idade_anos,int64,0,0.0,53
+outros_creditos,int64,0,0.0,3
+tipo_residencia,int64,0,0.0,3
+num_creditos_existentes,int64,0,0.0,4
+ocupacao,int64,0,0.0,4
+num_dependentes,int64,0,0.0,2
+telefone,int64,0,0.0,2
+trabalhador_estrangeiro,int64,0,0.0,2
+inadimplente,int64,0,0.0,2
