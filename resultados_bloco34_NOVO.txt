@@ -1,0 +1,156 @@
+====================================================================================================
+RESULTADOS — BLOCO 34 DEFINITIVO
+====================================================================================================
+Gerado em: 06/09/2026 16:40:50
+
+BASE FINAL
+----------------------------------------------------------------------------------------------------
+N final: 13,533
+Favorável: 2,557
+Desfavorável: 10,976
+% desfavorável: 81.11%
+
+VARIÁVEIS DO MODELO
+----------------------------------------------------------------------------------------------------
+IDADE_ANOS
+SEXO_LABEL
+RACA_LABEL
+ESCOLARIDADE_INFERENCIA
+SIT_TRAB_LABEL
+TERCEIRIZA_LABEL
+CBO_GRUPO_MODELO
+CID_INFERENCIA
+ALCOOL_LABEL
+DROGAS_LABEL
+FUMA_LABEL
+
+ESCOLARIDADE_INFERENCIA
+----------------------------------------------------------------------------------------------------
+ESCOLARIDADE_INFERENCIA
+Ensino médio completo                            4340
+Educação superior completa                       4281
+Ignorado                                         1561
+Educação superior incompleta                      896
+Ensino médio incompleto                           625
+Não informado                                     561
+Ensino fundamental completo                       546
+5ª a 8ª série incompleta do EF                    450
+1ª a 4ª série incompleta do EF                    124
+4ª série completa do EF                           112
+Baixa escolaridade / sem escolarização formal      37
+
+ESCOLARIDADE × DESFECHO
+----------------------------------------------------------------------------------------------------
+DESFECHO_DESFAVORAVEL                            0     1
+ESCOLARIDADE_INFERENCIA                                 
+1ª a 4ª série incompleta do EF                  20   104
+4ª série completa do EF                         19    93
+5ª a 8ª série incompleta do EF                 105   345
+Baixa escolaridade / sem escolarização formal    2    35
+Educação superior completa                     718  3563
+Educação superior incompleta                   156   740
+Ensino fundamental completo                    189   357
+Ensino médio completo                          868  3472
+Ensino médio incompleto                        157   468
+Ignorado                                       244  1317
+Não informado                                   79   482
+
+REFERÊNCIAS
+----------------------------------------------------------------------------------------------------
+               VARIAVEL                                           REFERENCIA  EXISTE     N
+             SEXO_LABEL                                             Feminino    True  9012
+             RACA_LABEL                                               Branca    True  5919
+ESCOLARIDADE_INFERENCIA                                Ensino médio completo    True  4340
+         SIT_TRAB_LABEL                                 Empregado registrado    True  8645
+       TERCEIRIZA_LABEL                                                  Não    True 10940
+       CBO_GRUPO_MODELO           2 — Profissionais das ciências e das artes    True  2635
+         CID_INFERENCIA F4 — Transtornos neuróticos, estresse e somatoformes    True  9101
+           ALCOOL_LABEL                                                  Não    True  8855
+           DROGAS_LABEL                                                  Não    True  8402
+             FUMA_LABEL                                                  Não    True  8640
+
+AUDITORIA COMPLETA
+----------------------------------------------------------------------------------------------------
+               VARIAVEL                                                         CATEGORIA  FAVORAVEL  DESFAVORAVEL  TOTAL  PCT_DESFAVORAVEL  MENOR_CELULA  CELULA_ZERO  MENOR_5  MENOR_10
+             SEXO_LABEL                                                          Feminino       1858          7154   9012          0.793830          1858        False    False     False
+             SEXO_LABEL                                                         Masculino        699          3822   4521          0.845388           699        False    False     False
+             RACA_LABEL                                                           Amarela         23           158    181          0.872928            23        False    False     False
+             RACA_LABEL                                                            Branca       1343          4576   5919          0.773104          1343        False    False     False
+             RACA_LABEL                                                          Ignorado        177          1414   1591          0.888749           177        False    False     False
+             RACA_LABEL                                                          Indígena          8            25     33          0.757576             8        False    False      True
+             RACA_LABEL                                                     Não informado         25           345    370          0.932432            25        False    False     False
+             RACA_LABEL                                                             Parda        817          3622   4439          0.815950           817        False    False     False
+             RACA_LABEL                                                             Preta        164           836   1000          0.836000           164        False    False     False
+ESCOLARIDADE_INFERENCIA                                    1ª a 4ª série incompleta do EF         20           104    124          0.838710            20        False    False     False
+ESCOLARIDADE_INFERENCIA                                           4ª série completa do EF         19            93    112          0.830357            19        False    False     False
+ESCOLARIDADE_INFERENCIA                                    5ª a 8ª série incompleta do EF        105           345    450          0.766667           105        False    False     False
+ESCOLARIDADE_INFERENCIA                     Baixa escolaridade / sem escolarização formal          2            35     37          0.945946             2        False     True      True
+ESCOLARIDADE_INFERENCIA                                        Educação superior completa        718          3563   4281          0.832282           718        False    False     False
+ESCOLARIDADE_INFERENCIA                                      Educação superior incompleta        156           740    896          0.825893           156        False    False     False
+ESCOLARIDADE_INFERENCIA                                       Ensino fundamental completo        189           357    546          0.653846           189        False    False     False
+ESCOLARIDADE_INFERENCIA                                             Ensino médio completo        868          3472   4340          0.800000           868        False    False     False
+ESCOLARIDADE_INFERENCIA                                           Ensino médio incompleto        157           468    625          0.748800           157        False    False     False
+ESCOLARIDADE_INFERENCIA                                                          Ignorado        244          1317   1561          0.843690           244        False    False     False
+ESCOLARIDADE_INFERENCIA                                                     Não informado         79           482    561          0.859180            79        False    False     False
+         SIT_TRAB_LABEL                                                        Aposentado         16            46     62          0.741935            16        False    False     False
+         SIT_TRAB_LABEL                                            Autônomo/conta própria         83           114    197          0.578680            83        False    False     False
+         SIT_TRAB_LABEL                                                     Cooperativado          8            23     31          0.741935             8        False    False      True
+         SIT_TRAB_LABEL                                                      Desempregado         94           489    583          0.838765            94        False    False     False
+         SIT_TRAB_LABEL                                          Empregado não registrado         32            82    114          0.719298            32        False    False     False
+         SIT_TRAB_LABEL                                              Empregado registrado       1360          7285   8645          0.842684          1360        False    False     False
+         SIT_TRAB_LABEL                                                        Empregador          6             6     12          0.500000             6        False    False      True
+         SIT_TRAB_LABEL                                                          Ignorado         46            73    119          0.613445            46        False    False     False
+         SIT_TRAB_LABEL                                                     Não informado         21           123    144          0.854167            21        False    False     False
+         SIT_TRAB_LABEL                                                            Outros         31            97    128          0.757812            31        False    False     False
+         SIT_TRAB_LABEL                                        Servidor público celetista        209           511    720          0.709722           209        False    False     False
+         SIT_TRAB_LABEL                                      Servidor público estatutário        615          2028   2643          0.767310           615        False    False     False
+         SIT_TRAB_LABEL                                                Trabalhador avulso         16             7     23          0.304348             7        False    False      True
+         SIT_TRAB_LABEL                                               Trabalho temporário         20            92    112          0.821429            20        False    False     False
+       TERCEIRIZA_LABEL                                                          Ignorado        118           500    618          0.809061           118        False    False     False
+       TERCEIRIZA_LABEL                                                               Não       2047          8893  10940          0.812888          2047        False    False     False
+       TERCEIRIZA_LABEL                                                     Não informado        212           735    947          0.776135           212        False    False     False
+       TERCEIRIZA_LABEL                                                     Não se aplica         41           169    210          0.804762            41        False    False     False
+       TERCEIRIZA_LABEL                                                               Sim        139           679    818          0.830073           139        False    False     False
+       CBO_GRUPO_MODELO               0 — Forças Armadas, policiais e bombeiros militares         46           235    281          0.836299            46        False    False     False
+       CBO_GRUPO_MODELO                                         1 — Dirigentes e gerentes         85           933   1018          0.916503            85        False    False     False
+       CBO_GRUPO_MODELO                        2 — Profissionais das ciências e das artes        517          2118   2635          0.803795           517        False    False     False
+       CBO_GRUPO_MODELO                                       3 — Técnicos de nível médio        336          1285   1621          0.792721           336        False    False     False
+       CBO_GRUPO_MODELO                     4 — Trabalhadores de serviços administrativos        528          2004   2532          0.791469           528        False    False     False
+       CBO_GRUPO_MODELO               5 — Trabalhadores dos serviços, comércio e mercados        643          2402   3045          0.788834           643        False    False     False
+       CBO_GRUPO_MODELO            6 — Trabalhadores agropecuários, florestais e da pesca         29            60     89          0.674157            29        False    False     False
+       CBO_GRUPO_MODELO      7 — Trabalhadores da produção de bens e serviços industriais        236          1400   1636          0.855746           236        False    False     False
+       CBO_GRUPO_MODELO 8 — Trabalhadores da produção industrial, operadores e montadores         49           250    299          0.836120            49        False    False     False
+       CBO_GRUPO_MODELO                       9 — Trabalhadores de manutenção e reparação         73           256    329          0.778116            73        False    False     False
+       CBO_GRUPO_MODELO                                                     Não informado         15            33     48          0.687500            15        False    False     False
+         CID_INFERENCIA                                         F3 — Transtornos do humor        396          3202   3598          0.889939           396        False    False     False
+         CID_INFERENCIA              F4 — Transtornos neuróticos, estresse e somatoformes       1994          7107   9101          0.780903          1994        False    False     False
+         CID_INFERENCIA                                                   Outros grupos F        167           667    834          0.799760           167        False    False     False
+           ALCOOL_LABEL                                                          Ignorado        461          2172   2633          0.824915           461        False    False     False
+           ALCOOL_LABEL                                                               Não       1826          7029   8855          0.793789          1826        False    False     False
+           ALCOOL_LABEL                                                     Não informado         93          1045   1138          0.918278            93        False    False     False
+           ALCOOL_LABEL                                                               Sim        177           730    907          0.804851           177        False    False     False
+           DROGAS_LABEL                                                          Ignorado        470          2269   2739          0.828405           470        False    False     False
+           DROGAS_LABEL                                                               Não       1894          6508   8402          0.774577          1894        False    False     False
+           DROGAS_LABEL                                                     Não informado        106          1083   1189          0.910849           106        False    False     False
+           DROGAS_LABEL                                                               Sim         87          1116   1203          0.927681            87        False    False     False
+             FUMA_LABEL                                                        Ex-fumante         33           132    165          0.800000            33        False    False     False
+             FUMA_LABEL                                                          Ignorado        511          2576   3087          0.834467           511        False    False     False
+             FUMA_LABEL                                                               Não       1790          6850   8640          0.792824          1790        False    False     False
+             FUMA_LABEL                                                     Não informado         75           807    882          0.914966            75        False    False     False
+             FUMA_LABEL                                                               Sim        148           611    759          0.805007           148        False    False     False
+
+CÉLULAS ZERO
+----------------------------------------------------------------------------------------------------
+Nenhuma célula zero.
+
+
+CÉLULAS < 5
+----------------------------------------------------------------------------------------------------
+               VARIAVEL                                     CATEGORIA  FAVORAVEL  DESFAVORAVEL  TOTAL  PCT_DESFAVORAVEL  MENOR_CELULA  CELULA_ZERO  MENOR_5  MENOR_10
+ESCOLARIDADE_INFERENCIA Baixa escolaridade / sem escolarização formal          2            35     37          0.945946             2        False     True      True
+
+STATUS FINAL
+----------------------------------------------------------------------------------------------------
+ESCOLARIDADE_INFERENCIA criada: True
+Todas as referências válidas: True
+Ausência de células zero: True

@@ -1,0 +1,27 @@
+﻿DIMENSAO,INDICADOR,RESULTADO
+Base após limpeza,N,24.351
+Coorte F00–F99,N,18.292
+Base elegível para o desfecho,N,13.598
+Desfecho desfavorável,N (%),"11.027 (81,09%)"
+Desfecho favorável,N (%),"2.571 (18,91%)"
+Predição — Regressão logística,ROC-AUC temporal OOF,"0,707"
+Predição — Regressão logística,PR-AUC temporal OOF,"0,913"
+Predição — XGBoost,ROC-AUC temporal OOF,"0,700"
+Predição — XGBoost,PR-AUC temporal OOF,"0,912"
+Limiar temporal interno,"Sensibilidade — t=0,88","0,682"
+Limiar temporal interno,"Especificidade — t=0,88","0,621"
+Limiar temporal interno,"Balanced accuracy — t=0,88","0,652"
+Avaliação temporal 2024,"Balanced accuracy — t=0,88","0,657"
+Avaliação temporal 2025,"Balanced accuracy — t=0,88","0,624"
+Modelo inferencial definitivo,N,13.533
+Modelo inferencial definitivo,AIC,"11.979,676"
+Idade — curva ajustada,Pico estimado da curva,"47,6 anos"
+Idade — curva ajustada,Probabilidade ajustada no pico,"74,94%"
+Associação ajustada,Drogas: Sim vs Não,"ORa 3,699 (IC95% 2,919–4,688)"
+Associação ajustada,CID F3 vs F4,"ORa 2,257 (IC95% 2,000–2,546)"
+Associação ajustada,CBO: dirigentes/gerentes vs grupo 2,"ORa 1,941 (IC95% 1,507–2,500)"
+Associação ajustada,CBO: produção de bens/serviços industriais vs grupo 2,"ORa 1,590 (IC95% 1,279–1,975)"
+Associação ajustada,Sexo: Masculino vs Feminino,"ORa 1,216 (IC95% 1,091–1,356)"
+Sem evidência independente,Terceirização: Sim vs Não,"ORa 1,095 (IC95% 0,892–1,345); p=0,385"
+Sem evidência independente,Álcool: Sim vs Não,"ORa 0,895 (IC95% 0,738–1,085); p=0,258"
+Sem evidência independente,Tabagismo: Sim vs Não,"ORa 0,989 (IC95% 0,806–1,214); p=0,915"
