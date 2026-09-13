@@ -1,0 +1,13 @@
+﻿# Dependencias instaladas pelo npm - nunca subir para o Git
+node_modules/
+
+# Arquivos compilados - gerados pelo npm run build
+build/
+
+# Variaveis de ambiente com credenciais - NUNCA subir
+.env
+*.env
+
+# Logs
+*.log
+npm-debug.log*
