@@ -1,4 +1,85 @@
-# TCC — Riscos Psicossociais e Saúde Mental Relacionada ao Trabalho
+## Riscos Psicossociais e Saúde Mental do Trabalhador no Contexto da NR-1
+
+### Integração entre Narrativas Digitais, Dados do SINAN e Aprendizado de Máquina
+
+---
+
+**Trabalho de Conclusão de Curso — MBA em Data Science & Analytics**  
+**Universidade de São Paulo — USP**  
+**Escola Superior de Agricultura “Luiz de Queiroz” — ESALQ**  
+**PECEGE — Programa de Educação Continuada em Economia e Gestão**
+
+**Autora:** Kymie Karina Silva Saito  
+**Orientadora:** Profa. Gabrielle  
+**Área:** Data Science & Analytics  
+**Ano:** 2026  
+
+---
+**Palavras-chave:** saúde mental ocupacional · riscos psicossociais · NR-1 · SINAN · 
+Social Listening · Processamento de Linguagem Natural · Machine Learning · 
+Regressão Logística
+# Riscos Psicossociais e Saúde Mental do Trabalhador no Contexto da NR-1
+
+### Integração entre Narrativas Digitais, Dados do SINAN e Aprendizado de Máquina
+
+---
+
+**Trabalho de Conclusão de Curso — MBA em Data Science & Analytics**  
+**Universidade de São Paulo — USP**  
+**Escola Superior de Agricultura “Luiz de Queiroz” — ESALQ**  
+**PECEGE — Programa de Educação Continuada em Economia e Gestão**
+
+**Autora:** Kymie Karina Silva Saito  
+**Orientadora:** Profa. Gabrielle  
+**Área:** Data Science & Analytics  
+**Ano:** 2026  
+
+---
+
+> **Repositório computacional do Trabalho de Conclusão de Curso**
+>
+> Este repositório reúne a documentação metodológica, os códigos e os resultados
+> computacionais desenvolvidos para investigar riscos psicossociais e saúde mental
+> relacionada ao trabalho a partir de duas perspectivas complementares:
+> **narrativas digitais públicas** e **registros do Sistema de Informação de Agravos
+> de Notificação (SINAN)**.
+>
+> O estudo combina **Processamento de Linguagem Natural (PLN)**, representações
+> semânticas, validação humana, análise de sentimento, aprendizado de máquina,
+> validação temporal e modelagem estatística inferencial.
+
+**Palavras-chave:** saúde mental ocupacional · riscos psicossociais · NR-1 · SINAN ·
+Social Listening · Processamento de Linguagem Natural · Machine Learning ·
+Regressão Logística
+
+---
+
+### Visão geral do projeto
+
+`Social Listening` · `NLP` · `Embeddings` · `Human-in-the-loop` ·
+`Transformers` · `SINAN` · `Logistic Regression` · `Random Forest` ·
+`XGBoost` · `LightGBM` · `Temporal Validation` · `Statistical Inference`
+
+---
+
+## Do relato espontâneo à vigilância epidemiológica
+
+
+> **Repositório computacional do Trabalho de Conclusão de Curso**
+>
+> Este repositório reúne a documentação metodológica, os códigos e os resultados
+> computacionais desenvolvidos para investigar riscos psicossociais e saúde mental
+> relacionada ao trabalho a partir de duas perspectivas complementares:
+> **narrativas digitais públicas** e **registros do Sistema de Informação de Agravos
+> de Notificação (SINAN)**.
+>
+> O estudo combina **Processamento de Linguagem Natural (PLN)**, representações
+> semânticas, validação humana, análise de sentimento, aprendizado de máquina,
+> validação temporal e modelagem estatística inferencial.
+
+---
+
+
 
 ## Do relato espontâneo à vigilância epidemiológica
 
