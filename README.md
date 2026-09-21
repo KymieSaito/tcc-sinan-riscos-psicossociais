@@ -79,8 +79,11 @@ N_{\text{afetados}}
 \bar{D}_{\text{perda produtiva}}
 $$
 
-em que $N_{\text{afetados}}$ representa a população estimada de pessoas afetadas e
-$\bar{D}_{\text{perda produtiva}}$ representa a perda média de produtividade convertida em
+em que
+$N_{\text{afetados}}$ 
+representa a população estimada de pessoas afetadas;
+$\bar{D}_{\text{perda produtiva}}$ 
+representa a perda média de produtividade convertida em
 dias equivalentes.
 
 Conceitualmente, perdas de produtividade associadas à saúde mental podem envolver
@@ -162,8 +165,7 @@ Os dois pipelines respondem a perguntas diferentes.
 
 No componente digital:
 
-$$
-\text{texto}
+$$\text{texto}
 \rightarrow
 \text{representação}
 \rightarrow
@@ -171,13 +173,10 @@ $$
 \rightarrow
 \text{auditoria humana}
 \rightarrow
-\text{sentimento}
-$$
+\text{sentimento}$$
 
 No SINAN:
-
-$$
-\text{registro}
+$$\text{registro}
 \rightarrow
 \text{coorte}
 \rightarrow
@@ -187,8 +186,7 @@ $$
 \rightarrow
 \text{validação temporal}
 \rightarrow
-\text{inferência}
-$$
+\text{inferência}$$
 
 Não foi realizado `merge` entre YouTube e SINAN.
 
@@ -251,9 +249,7 @@ Comentários principais e respostas foram associados aos respectivos vídeos.
 
 Cada narrativa recebeu um identificador único, `registro_id`, utilizado para manter sua
 rastreabilidade ao longo das diferentes etapas:
-
-$$
-\text{registro original}
+$$ \text{registro original}
 \rightarrow
 \text{processamento}
 \rightarrow
@@ -261,8 +257,7 @@ $$
 \rightarrow
 \text{auditoria}
 \rightarrow
-\text{corpus final}
-$$
+\text{corpus final} $$
 
 Essa decisão mostrou-se particularmente importante quando a auditoria humana indicou a
 necessidade de retornar a uma etapa anterior do pipeline e reconstruir a seleção temática.
@@ -295,11 +290,7 @@ significado.
 
 Essa diferença motivou uma estratégia híbrida:
 
-$$
-\text{informação lexical}
-+
-\text{informação semântica}
-$$
+$$ \text{informação lexical}+\text{informação semântica}$$
 
 ---
 
@@ -345,30 +336,20 @@ numericamente.
 
 Considere uma narrativa:
 
-$$
-x_i=(w_1,w_2,\ldots,w_T)
-$$
+$$x_i=(w_1,w_2,\ldots,w_T)$$
 
 formada por uma sequência de tokens.
 
 Um modelo de *embedding* pode ser representado como uma função:
-
-$$
-f:x_i\rightarrow\mathbf{v}_i\in\mathbb{R}^{d}
-$$
+$$f:x_i\rightarrow\mathbf{v}_i\in\mathbb{R}^{d}$$
 
 produzindo:
 
-$$
-\mathbf{v}_i=f(x_i)
-$$
+$$\mathbf{v}_i=f(x_i)$$
 
 em que:
 
-$$
-\mathbf{v}_i=
-(v_{i1},v_{i2},\ldots,v_{id})
-$$
+$$\mathbf{v}_i=(v_{i1},v_{i2},\ldots,v_{id})$$
 
 é a representação vetorial da narrativa em um espaço semântico de dimensão $d$.
 
@@ -392,27 +373,25 @@ A consequência é particularmente útil neste projeto:
 Uma vez representadas em um espaço vetorial comum, narrativas podem ser comparadas por
 medidas geométricas de proximidade.
 
-Para dois vetores $\mathbf{u}$ e $\mathbf{v}$, a similaridade do cosseno é definida por:
+Para dois vetores
 
-$$
-\operatorname{sim}_{\cos}(\mathbf{u},\mathbf{v})
-=
-\frac{\mathbf{u}^{T}\mathbf{v}}
-{\|\mathbf{u}\|_2\|\mathbf{v}\|_2}
-$$
+$$\mathbf{u}$$
+e 
+$$\mathbf{v}$$, 
+
+Para dois vetores 
+$$\mathbf{u}$$
+e $$\mathbf{v}$$, 
+
+a similaridade do cosseno é definida por:
+
+$$\mathrm{sim}_{\cos}(\mathbf{u},\mathbf{v})=\frac{\mathbf{u}^{T}\mathbf{v}}{\lVert\mathbf{u}\rVert_2 \lVert\mathbf{v}\rVert_2}$$
 
 ou, de forma expandida:
 
-$$
-\operatorname{sim}_{\cos}(\mathbf{u},\mathbf{v})
-=
-\frac{\sum_{j=1}^{d}u_jv_j}
-{\sqrt{\sum_{j=1}^{d}u_j^2}
-\sqrt{\sum_{j=1}^{d}v_j^2}}
-$$
+$$\mathrm{sim}_{\cos}(\mathbf{u},\mathbf{v})=\frac{\sum_{j=1}^{d}u_jv_j}{\sqrt{\sum_{j=1}^{d}u_j^2}\sqrt{\sum_{j=1}^{d}v_j^2}}$$
 
 Essa medida compara predominantemente a orientação dos vetores no espaço de representação.
-
 A pergunta computacional deixa, portanto, de ser apenas:
 
 > "Os textos possuem as mesmas palavras?"
@@ -429,43 +408,27 @@ relatar experiências semelhantes.
 
 # 6. Estratégia de busca e engenharia de atributos
 
-As consultas utilizadas na API e as características posteriormente construídas possuem
-funções distintas.
+As consultas utilizadas na API e as características posteriormente construídas possuem funções distintas.
 
-As consultas representam uma estratégia de **recuperação de informação**:
+As consultas representam uma estratégia de **recuperação de informação**. Seja \(Q\) o conjunto de consultas definidas para o estudo:
 
-$$
-Q
-\rightarrow
-\{x_1,x_2,\ldots,x_n\}
-$$
+$$Q = \{q_1,q_2,\ldots,q_m\}.$$
 
-A engenharia de atributos ocorre posteriormente:
+A aplicação dessas consultas à API produz um conjunto inicial de registros textuais:
 
-$$
-x_i
-\rightarrow
-[
-\text{estrutura},
-\text{léxico},
-\text{contexto},
-\text{semântica}
-]
-$$
+$$Q \longrightarrow \mathcal{D}_{raw}.$$
 
-Foram considerados atributos estruturais e textuais, idioma, extensão da narrativa,
-relação entre comentário e resposta, indicadores lexicais associados ao domínio e
-representações semânticas.
+A engenharia de atributos ocorre posteriormente. Para cada registro textual \(r_i \in \mathcal{D}_{raw}\), constrói-se um vetor de características:
 
-Portanto:
+$$r_i \longrightarrow \mathbf{x}_i$$.
 
-> **query de busca não é feature.**
+Esse vetor reúne diferentes grupos de atributos:
 
-A query determina quais registros podem ser recuperados.
+$$\mathbf{x}_i =[\mathbf{x}_i^{(est)},\mathbf{x}_i^{(lex)},\mathbf{x}_i^{(ctx)},\mathbf{x}_i^{(sem)}]$$
+.
 
-A feature representa computacionalmente propriedades desses registros.
+Foram considerados atributos estruturais e textuais, idioma, extensão da narrativa, relação entre comentário e resposta, indicadores lexicais associados ao domínio e representações semânticas.
 
----
 
 # 7. Relevância temática como etapa própria
 
@@ -474,13 +437,7 @@ narrativa relevante sobre riscos psicossociais ou saúde mental relacionada ao t
 
 Por isso, foi necessário definir uma variável de relevância:
 
-$$
-R_i=
-\begin{cases}
-1, & \text{se a narrativa for tematicamente relevante}\\
-0, & \text{caso contrário}
-\end{cases}
-$$
+$$ R_i=\begin{cases}1, & \text{se a narrativa for tematicamente relevante}\\0, & \text{caso contrário}\end{cases}$$
 
 Por exemplo:
 
@@ -496,30 +453,14 @@ caso o contexto do vídeo fosse utilizado como único critério.
 Isso levou à separação de dois problemas:
 
 ### Problema 1 — Relevância
-
-$$
-P(R_i=1\mid x_i)
-$$
-
+$$ P(R_i=1\mid x_i)$$
 ### Problema 2 — Sentimento, condicionado à relevância
-
-$$
-P(S_i=k\mid x_i,R_i=1)
-$$
-
+$$P(S_i=k\mid x_i,R_i=1)$$
 em que:
-
-$$
-k\in
-\{\text{negativo},\text{neutro},\text{positivo}\}
-$$
+$$k\in\{\text{negativo},\text{neutro},\text{positivo}\}$$
 
 Assim:
-
-$$
-\boxed{\text{relevância}\neq\text{sentimento}}
-$$
-
+$$\boxed{\text{relevância}\neq\text{sentimento}}$$
 ---
 
 # 8. Human-in-the-loop: auditoria humana da relevância
@@ -564,17 +505,7 @@ A auditoria, portanto, não funcionou apenas como uma etapa de mensuração de d
 Ela alterou a própria construção do conjunto analítico.
 
 Em termos de Ciência de Dados:
-
-$$
-\text{modelo}
-\rightarrow
-\text{auditoria humana}
-\rightarrow
-\text{diagnóstico}
-\rightarrow
-\text{reconstrução do dado}
-$$
-
+$$\text{modelo}\rightarrow\text{auditoria humana}\rightarrow\text{diagnóstico}\rightarrow\text{reconstrução do dado}$$
 Essa arquitetura caracteriza um processo **human-in-the-loop**.
 
 ---
@@ -582,18 +513,12 @@ Essa arquitetura caracteriza um processo **human-in-the-loop**.
 # 9. Corpus temático final
 
 Após a reconstrução:
-
-$$
-N_{\text{narrativas}}=1.031
-$$
+$$N_{\text{narrativas}}=1.031$$
 
 narrativas tematicamente relevantes foram mantidas para o recorte de 2026.
 
 Essas narrativas estavam distribuídas em:
-
-$$
-N_{\text{vídeos}}=196
-$$
+$$N_{\text{vídeos}}=196$$
 
 vídeos.
 
@@ -608,17 +533,12 @@ Não representam prevalência populacional de riscos psicossociais entre trabalh
 Somente depois da definição da relevância temática foi realizada a análise de sentimento.
 
 A ordem metodológica foi:
-
-$$
-\boxed{
-\text{narrativa}
+$$\boxed{\text{narrativa}
 \rightarrow
 \text{relevância}
 \rightarrow
 \text{sentimento}
-}
-$$
-
+}$$
 Para essa etapa foi utilizado o modelo multilíngue pré-treinado:
 
 `lxyuan/distilbert-base-multilingual-cased-sentiments-student`
@@ -630,22 +550,16 @@ representações contextualizadas dos tokens.
 
 De forma simplificada, o mecanismo de *scaled dot-product attention* pode ser representado
 por:
-
-$$
-\operatorname{Attention}(Q,K,V)
-=
-\operatorname{softmax}
-\left(
-\frac{QK^{T}}{\sqrt{d_k}}
-\right)V
-$$
-
+$$ \operatorname{Attention}(Q,K,V)=\operatorname{softmax}\left(\frac{QK^{T}}{\sqrt{d_k}}\right)V$$
 em que:
-
-- $Q$ representa as *queries*;
-- $K$ representa as *keys*;
-- $V$ representa os *values*;
-- $d_k$ representa a dimensão utilizada na normalização.
+- $Q$
+- representa as *queries*;
+- $K$
+-  representa as *keys*;
+- $V$
+-  representa os *values*;
+- $d_k$
+-  representa a dimensão utilizada na normalização.
 
 Essa arquitetura permite que a representação de uma palavra dependa do contexto formado
 pelos demais elementos da sequência.
@@ -664,28 +578,15 @@ Não foi realizado *fine-tuning* no corpus do TCC.
 
 Para cada narrativa relevante $x_i$, o modelo produziu probabilidades para três classes:
 
-$$
-\mathbf{p}_i=
-\begin{bmatrix}
-P(S_i=\text{negativo}\mid x_i)\\
-P(S_i=\text{neutro}\mid x_i)\\
-P(S_i=\text{positivo}\mid x_i)
-\end{bmatrix}
-$$
+$$\mathbf{p}_i= \begin{bmatrix} P(S_i=\text{negativo}\mid x_i)\\ P(S_i=\text{neutro}\mid x_i)\\ P(S_i=\text{positivo}\mid x_i)\end{bmatrix}$$
 
 sujeitas a:
 
-$$
-\sum_{k=1}^{3}P(S_i=k\mid x_i)=1
-$$
+$$\sum_{k=1}^{3}P(S_i=k\mid x_i)=1 $$
 
 A classificação automática corresponde à classe com maior probabilidade:
 
-$$
-\hat S_i=
-\arg\max_{k}
-P(S_i=k\mid x_i)
-$$
+$$\hat S_i=\arg\max_{k}P(S_i=k\mid x_i)$$
 
 Além da classe final, foram preservados no pipeline:
 
@@ -728,30 +629,16 @@ validação externa definitiva do modelo.
 # 13. Distribuição final de sentimento
 
 Das 1.031 narrativas relevantes:
-
-$$
-N_{\text{sentimento}}=974
-$$
-
+$$ N_{\text{sentimento}}=974$$
 possuíam classificação de sentimento disponível.
 
 As demais:
-
-$$
-N_{\text{sem sentimento}}=57
-$$
-
+$$N_{\text{sem sentimento}}=57$$
 foram preservadas no corpus e excluídas somente das análises cuja variável de interesse era
 sentimento.
 
 Portanto:
-
-$$
-N_{\text{corpus}}=1.031
-\neq
-N_{\text{sentimento}}=974
-$$
-
+$$N_{\text{corpus}}=1.031 \neq N_{\text{sentimento}}=974$$
 Entre as 974 narrativas classificadas:
 
 | Sentimento | n | % |
@@ -762,30 +649,9 @@ Entre as 974 narrativas classificadas:
 | **Total** | **974** | **100,00%** |
 
 Matematicamente:
-
-$$
-P(S=\text{negativo}\mid R=1,S\text{ disponível})
-=
-\frac{460}{974}
-=
-0,4723
-$$
-
-$$
-P(S=\text{neutro}\mid R=1,S\text{ disponível})
-=
-\frac{377}{974}
-=
-0,3871
-$$
-
-$$
-P(S=\text{positivo}\mid R=1,S\text{ disponível})
-=
-\frac{137}{974}
-=
-0,1407
-$$
+$$P(S=\text{negativo}\mid R=1,S\text{ disponível})=\frac{460}{974}=0,4723$$
+$$P(S=\text{neutro}\mid R=1,S\text{ disponível})=\frac{377}{974}=0,3871$$
+$$P(S=\text{positivo}\mid R=1,S\text{ disponível})=\frac{137}{974}=0,1407$$
 
 O condicionamento é fundamental.
 
@@ -806,11 +672,7 @@ O pipeline permite investigar:
 
 Entretanto:
 
-$$
-P(\text{característica}\mid\text{corpus YouTube})
-\neq
-P(\text{característica}\mid\text{trabalhadores brasileiros})
-$$
+$$P(\text{característica}\mid\text{corpus YouTube})\neq P(\text{característica}\mid\text{trabalhadores brasileiros})$$
 
 Usuários do YouTube não constituem amostra probabilística da população trabalhadora.
 
@@ -833,30 +695,16 @@ presentes no corpus, e não estimar prevalência epidemiológica.
 O segundo pipeline parte de registros estruturados de vigilância epidemiológica.
 
 A base inicial continha:
-
-$$
-N_{\text{bruto}}=24.356
-$$
+$$N_{\text{bruto}}=24.356$$
 
 registros.
 
 Foram identificadas cinco duplicidades exatas:
-
-$$
-N_{\text{limpo}}
-=
-24.356-5
-=
-24.351
-$$
+$$N_{\text{limpo}}=24.356-5=24.351$$
 
 Após a padronização dos códigos da CID-10 e definição da coorte pertencente ao capítulo
 F00–F99:
-
-$$
-N_{\text{epidemiológico}}=18.292
-$$
-
+$$N_{\text{epidemiológico}}=18.292$$
 registros foram mantidos para a caracterização epidemiológica.
 
 A série disponível compreendeu registros de 2014 a 2019 e de 2022 a 2025.
@@ -865,112 +713,104 @@ A ausência de observações disponíveis para 2020 e 2021 foi preservada como *
 série**, e não convertida artificialmente em contagem zero.
 
 ---
-
 # 16. Definição do problema supervisionado
 
-A modelagem supervisionada respondeu a uma pergunta mais específica:
+A modelagem supervisionada respondeu a uma pergunta específica:
 
-> **Entre os registros de transtornos mentais relacionados ao trabalho já notificados no
-> SINAN e com evolução classificável, as características disponíveis permitem discriminar
-> os casos associados à incapacidade ou óbito daqueles associados à cura ou cura não
-> confirmada?**
+> **Entre os registros de transtornos mentais relacionados ao trabalho já notificados no SINAN e com evolução classificável, as características disponíveis permitem discriminar os casos com incapacidade ou óbito daqueles classificados como cura ou cura não confirmada?**
 
-Foi definido o desfecho:
+Para cada registro \(i\), definiu-se uma variável-alvo binária \(Y_i\), em que:
 
-$$
-Y_i=
-\begin{cases}
-1, &
-\text{incapacidade temporária, incapacidade permanente ou óbito}\\
-0, &
-\text{cura ou cura não confirmada}
-\end{cases}
-$$
+- \(Y_i = 1\): **desfecho com incapacidade ou óbito**, compreendendo incapacidade temporária, incapacidade permanente parcial, incapacidade permanente total ou óbito relacionado ao trabalho;
+- \(Y_i = 0\): **desfecho sem incapacidade ou óbito**, compreendendo cura ou cura não confirmada.
 
-Essa operacionalização **não representa uma escala de gravidade clínica**.
+Essa operacionalização **não representa uma escala de gravidade clínica**. Trata-se de uma classificação analítica construída a partir da evolução registrada no SINAN para possibilitar a formulação do problema de classificação supervisionada.
 
-Ela representa uma classificação analítica da evolução registrada no SINAN.
-
-A base de modelagem compreendeu:
+Após a aplicação dos critérios de elegibilidade do desfecho, a base utilizada na modelagem compreendeu:
 
 $$
-N=13.598
+N = 13598
 $$
 
-registros, sendo:
+registros, distribuídos entre:
 
 $$
-N_1=11.027
+N_1 = 11027
 $$
 
-com incapacidade/óbito e:
+registros da classe positiva e
 
 $$
-N_0=2.571
+N_0 = 2571
 $$
 
-sem incapacidade/óbito.
+registros da classe negativa.
 
-A prevalência amostral da classe positiva foi:
+A proporção amostral da classe positiva foi calculada por:
 
-$$
-\hat{\pi}
-=
-\frac{11.027}{13.598}
-=
-0,8109
-$$
+$$ \hat{\pi} = \frac{N_1}{N} = \frac{11027}{13598} = 0.8109 $$
 
-ou aproximadamente:
+correspondendo a aproximadamente **81,09%** dos registros utilizados na modelagem.
 
-$$
-81,09\%
-$$
+Consequentemente, a classe negativa correspondeu a aproximadamente **18,91%** da amostra. Essa distribuição evidencia um desbalanceamento entre as classes, aspecto considerado posteriormente na escolha das métricas de avaliação dos classificadores.
 
 ---
-
 # 17. Variáveis preditoras
 
-A modelagem principal utilizou 12 variáveis preditoras.
+A modelagem principal utilizou **12 variáveis preditoras**, selecionadas entre as informações disponíveis nos registros do SINAN.
 
-A idade foi utilizada como variável numérica.
+A idade foi utilizada como variável numérica. As demais características foram tratadas como variáveis categóricas e compreenderam: sexo, raça/cor, escolaridade, unidade federativa, situação de trabalho, terceirização, grande grupo da Classificação Brasileira de Ocupações (CBO), agrupamento diagnóstico da CID-10, consumo de álcool, uso de drogas e tabagismo.
 
-As demais características incluíram variáveis sociodemográficas, ocupacionais e clínicas
-registradas no sistema, como sexo, raça/cor, escolaridade, unidade federativa, situação de
-trabalho, terceirização, grupo ocupacional, grupo de diagnóstico e registros relacionados ao
-uso de álcool, drogas e tabaco.
+A seleção dos atributos considerou não apenas sua disponibilidade, mas também sua relação temporal e conceitual com o desfecho. Variáveis potencialmente determinadas durante ou após a evolução do caso, ou que pudessem incorporar informação excessivamente próxima da definição do próprio desfecho, não foram utilizadas na modelagem principal, com o objetivo de reduzir o risco de **vazamento de informação (*data leakage*)**.
 
-A construção do conjunto preditor considerou também o risco de **data leakage**.
+Além disso, o tratamento dos atributos foi incorporado ao fluxo de modelagem de modo a preservar a separação entre treinamento e avaliação. As transformações necessárias foram ajustadas exclusivamente com os dados de treinamento e posteriormente aplicadas aos respectivos conjuntos de avaliação, evitando que informações provenientes de períodos posteriores fossem utilizadas durante o ajuste dos modelos.
 
-Variáveis que pudessem representar informação posterior ou excessivamente próxima da
-definição do desfecho não foram incorporadas indiscriminadamente ao modelo principal.
+---
+# 18. Formulação matemática do problema supervisionado
 
-Em aprendizado supervisionado, busca-se estimar uma função:
+A etapa preditiva foi formalizada a partir de um conjunto de dados com \(n\) registros:
+
+$$
+\mathcal{D} = \{(\mathbf{x}_i,y_i)\}_{i=1}^{n}
+$$
+
+Para cada registro \(i\), o vetor de características foi representado por:
+
+$$
+\mathbf{x}_i = (x_{i1},x_{i2},\ldots,x_{ip})
+$$
+
+em que \(p\) corresponde ao número de variáveis preditoras.
+
+O desfecho observado foi representado por:
+
+$$
+y_i \in \{0,1\}
+$$
+
+sendo \(y_i=1\) correspondente ao desfecho com incapacidade ou óbito e \(y_i=0\) ao desfecho sem incapacidade ou óbito.
+
+O problema de classificação consistiu em estimar uma função:
 
 $$
 f:\mathcal{X}\rightarrow[0,1]
 $$
 
-tal que:
+que, a partir do vetor de características de cada registro, produzisse uma probabilidade estimada:
 
 $$
-\hat p_i=f(\mathbf{x}_i)
+\hat{p}_i = f(\mathbf{x}_i)
 $$
 
-represente uma estimativa da probabilidade do desfecho positivo condicionada às informações
-disponíveis:
+Essa saída foi interpretada como uma estimativa da probabilidade condicional da classe positiva:
 
 $$
-\hat p_i
-\approx
-P(Y_i=1\mid\mathbf{x}_i)
+\hat{p}_i \approx P(Y_i=1\mid\mathbf{x}_i)
 $$
 
----
+Assim, os algoritmos comparados buscaram estimar a mesma quantidade de interesse, utilizando estruturas matemáticas distintas para representar a relação entre as características observadas e o desfecho.
 
-# 18. Modelos supervisionados comparados
-
-Foram comparadas quatro famílias de modelos:
+Foram comparados quatro modelos:
 
 1. **Regressão Logística (LR)**;
 2. **Random Forest (RF)**;
@@ -984,7 +824,7 @@ flowchart TD
     A --> D["XGBoost"]
     A --> E["LightGBM"]
 
-    B --> F["Probabilidades"]
+    B --> F["Probabilidade estimada"]
     C --> F
     D --> F
     E --> F
@@ -993,125 +833,339 @@ flowchart TD
     F --> H["PR-AUC"]
     F --> I["Sensibilidade"]
     F --> J["Especificidade"]
-    F --> K["Precisão / F1"]
-    F --> L["Balanced Accuracy"]
+    F --> K["Precisão e F1"]
+    F --> L["Acurácia balanceada"]
 ```
 
-A comparação não buscou determinar qual algoritmo era mais sofisticado, mas qual apresentava
-comportamento mais adequado diante da estrutura dos dados e da necessidade de generalização
-temporal.
+A comparação foi realizada sob o mesmo desenho de validação temporal, permitindo avaliar empiricamente o comportamento preditivo dos quatro modelos.
 
 ---
 
 # 19. Regressão Logística
-
-Na Regressão Logística:
-
-$$
-p_i=P(Y_i=1\mid\mathbf{x}_i)
-$$
-
-e modela-se o logaritmo das *odds*:
+Na Regressão Logística, modela-se a probabilidade condicional:
 
 $$
-\log
-\left(
-\frac{p_i}{1-p_i}
-\right)
-=
-\beta_0+
-\beta_1x_{i1}+
-\cdots+
-\beta_px_{ip}
+p_i=P(Y_i=1\mid\mathbf{x}_i).
 $$
 
-Definindo:
+Como uma combinação linear das variáveis pode assumir qualquer valor real, utiliza-se a transformação *logit*:
 
 $$
-\eta_i
-=
-\beta_0+
-\sum_{j=1}^{p}\beta_jx_{ij}
+\mathrm{logit}(p_i)=\log(\frac{p_i}{1-p_i}).
+$$
+
+O modelo é definido por:
+
+$$
+\mathrm{logit}(p_i)=\beta_0+\sum_{j=1}^{p}\beta_jx_{ij}.
+$$
+
+Definindo o preditor linear:
+
+$$
+\eta_i=\beta_0+\sum_{j=1}^{p}\beta_jx_{ij},
 $$
 
 a probabilidade é obtida pela função logística:
 
 $$
-p_i
-=
-\sigma(\eta_i)
-=
-\frac{1}{1+e^{-\eta_i}}
+p_i=\sigma(\eta_i)=\frac{1}{1+\exp(-\eta_i)},
 $$
 
 de modo que:
 
 $$
-0<p_i<1
+0<p_i<1.
 $$
 
-A Regressão Logística apresenta uma característica especialmente importante neste estudo:
-seus coeficientes podem ser relacionados às *odds* por:
+Para uma resposta binária:
 
 $$
-OR_j=e^{\beta_j}
+Y_i\sim\mathrm{Bernoulli}(p_i).
 $$
 
-permitindo uma ponte conceitual entre modelagem probabilística e interpretação estatística.
+A função de verossimilhança pode ser escrita como:
+
+$$
+L(\boldsymbol{\beta})=\prod_{i=1}^{n} p_i^{y_i}(1-p_i)^{1-y_i}.
+$$
+
+Equivalentemente, a log-verossimilhança é:
+
+
+$$
+\ell(\boldsymbol{\beta}) =\sum_{i=1}^{n}[y_i\log(p_i)+(1-y_i)\log(1-p_i)].
+$$
+
+A estimação busca os coeficientes:
+
+$$
+\hat{\boldsymbol{\beta}} = (\hat\beta_0,\hat\beta_1,\ldots,\hat\beta_p)
+$$
+
+que maximizam a compatibilidade entre os desfechos observados e as probabilidades produzidas pelo modelo.
+
+A mesma expressão também pode ser relacionada à *binary cross-entropy* ou *log-loss*:
+
+$$
+\mathcal{L}_{\text{log}}=-\frac{1}{n}\sum_{i=1}^{n}[y_i\log(\hat p_i)+(1-y_i)\log(1-\hat p_i)].
+$$
+
+Minimizar essa perda equivale, sob essa formulação, a maximizar a log-verossimilhança.
+
+A Regressão Logística apresenta ainda uma característica especialmente importante neste estudo: seus coeficientes podem ser relacionados às *odds*. Para uma variável $X_j$:
+
+$$
+OR_j=e^{\beta_j}.
+$$
+
+Essa propriedade estabelece uma ponte conceitual entre modelagem probabilística, predição e interpretação estatística.
 
 ---
+# 20. Árvores de decisão e Random Forest
 
-# 20. Random Forest
+A Random Forest é construída a partir de múltiplas árvores de decisão. Para compreender a floresta, é útil explicitar primeiro como uma árvore realiza suas divisões.
 
-A Random Forest combina múltiplas árvores de decisão construídas sobre amostras e subconjuntos
-de variáveis.
-
-De forma simplificada, para classificação probabilística:
+Considere um nó contendo um conjunto de observações $S$. Para classificação, uma medida comum de heterogeneidade é a impureza de Gini:
 
 $$
-\hat p_{\text{RF}}(x)
-=
-\frac{1}{B}
-\sum_{b=1}^{B}
-\hat p_b(x)
+G(S) = 1 - \sum_{k=1}^{K} p_k^2
 $$
 
-em que $B$ representa o número de árvores.
+em que $p_k$ representa a proporção de observações da classe $k$ no nó.
 
-A agregação reduz a dependência de uma única árvore e permite representar relações não
-lineares e interações entre variáveis.
+No problema binário:
 
+$$
+G(S) = 1 - p_0^2 - p_1^2
+$$
+
+Uma divisão candidata separa $S$ em dois subconjuntos, $S_L$ e $S_R$. A impureza ponderada após a divisão pode ser escrita como:
+
+$$
+G_{\mathrm{split}} = \frac{|S_L|}{|S|}G(S_L) + \frac{|S_R|}{|S|}G(S_R)
+$$
+
+A redução de impureza associada à divisão é:
+
+$$
+\Delta G = G(S) - G_{\mathrm{split}}
+$$
+
+A árvore procura divisões que aumentem a homogeneidade dos nós descendentes, isto é, que produzam maior redução de impureza segundo o critério utilizado.
+
+Uma árvore individual pode ser representada como uma função:
+
+$$
+T_b(\mathbf{x})
+$$
+
+em que $b$ identifica a árvore e $\mathbf{x}$ representa o vetor de características de uma observação.
+
+A Random Forest introduz diversidade entre as árvores por dois mecanismos principais: amostragem *bootstrap* das observações e seleção aleatória de subconjuntos de variáveis candidatas em cada divisão.
+
+Para cada árvore $b$, uma amostra *bootstrap* é obtida a partir do conjunto original de dados:
+
+$$
+\mathcal{D}^{(b)}
+\sim
+\mathrm{Bootstrap}(\mathcal{D}),
+\qquad
+b=1,\ldots,B
+$$
+
+em que $B$ representa o número total de árvores da floresta.
+
+Para classificação probabilística, cada árvore fornece uma estimativa da probabilidade da classe positiva:
+
+$$
+\hat{p}_b(\mathbf{x})=P_b(Y=1\mid\mathbf{x})
+$$
+
+A probabilidade final produzida pela Random Forest corresponde à agregação das estimativas das $B$ árvores:
+
+$$
+\hat{p}_{\mathrm{RF}}(\mathbf{x})
+=\frac{1}{B}\sum_{b=1}^{B}
+\hat{p}_b(\mathbf{x})
+$$
+
+Assim, diferentes árvores contribuem para a estimativa final, reduzindo a dependência de uma única estrutura de decisão.
+
+A classificação pode então ser obtida mediante um limiar $t$. Para uma observação com vetor de características $\mathbf{x}$, a regra de decisão é:
+
+- $\hat{Y}=1$, se $\hat{p}_{\mathrm{RF}}(\mathbf{x}) \ge t$;
+- $\hat{Y}=0$, se $\hat{p}_{\mathrm{RF}}(\mathbf{x}) < t$.
+
+Dessa forma, a Random Forest produz inicialmente uma probabilidade estimada, enquanto a classe predita depende do limiar de decisão adotado.
+
+A combinação de múltiplas árvores permite representar relações não lineares e interações entre variáveis, enquanto a diversificação das árvores e a agregação de suas predições contribuem para reduzir a variância em comparação com uma única árvore de decisão.
+
+**Conceitualmente: Random Forest = árvores diversificadas + agregação.**
 ---
-
 # 21. Gradient Boosting: XGBoost e LightGBM
 
-XGBoost e LightGBM pertencem à família de *gradient boosting*.
+XGBoost e LightGBM pertencem à família de métodos de *gradient boosting*.
 
-Em vez de construir árvores independentes e agregá-las posteriormente, o boosting adiciona
-modelos sequencialmente:
+Diferentemente da Random Forest, na qual as árvores são construídas de forma diversificada e posteriormente agregadas, o boosting constrói modelos de maneira sequencial.
+
+O modelo aditivo após $M$ etapas pode ser representado por:
 
 $$
-F_M(x)
-=
-F_0(x)
-+
-\sum_{m=1}^{M}
-\eta h_m(x)
+F_M(\mathbf{x})= F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}),
 $$
 
 em que:
 
-- $F_0(x)$ representa a estimativa inicial;
-- $h_m(x)$ representa a árvore adicionada na etapa $m$;
+- $$F_0(\mathbf{x})$ representa a estimativa inicial;
+- $$h_m(\mathbf{x})$ representa a árvore adicionada na etapa $m$;
 - $\eta$ representa a taxa de aprendizado;
 - $M$ representa o número de etapas de boosting.
 
-Cada nova árvore procura reduzir os erros residuais da representação construída até aquele
-momento.
+A atualização sequencial é:
 
-XGBoost e LightGBM implementam estratégias distintas de otimização e construção das árvores,
-mas ambos permitem representar relações não lineares e interações sem exigir que elas sejam
-especificadas previamente.
+$$
+F_m(\mathbf{x}) = F_{m-1}(\mathbf{x}) + \eta h_m(\mathbf{x}).
+$$
+
+Cada nova árvore é construída com o objetivo de reduzir uma função de perda. De forma geral:
+
+$$
+\mathcal{L} = \sum_{i=1}^{n} \ell(y_i,\hat y_i).
+$$
+
+Para classificação binária probabilística, uma função de perda comum é a log-loss:
+
+$$
+\ell(y_i,p_i)=-[y_i\log(p_i)+(1-y_i)\log(1-p_i)].
+$$
+
+Assim, o treinamento procura sucessivamente modificar $F(\mathbf{x})$ para reduzir o erro segundo a função objetivo.
+
+## 21.1 XGBoost
+
+O XGBoost estende o princípio de *gradient boosting* incorporando explicitamente regularização à função objetivo.
+
+Na etapa $t$, sua função objetivo pode ser representada de forma geral por:
+
+$$
+\mathrm{Obj}^{(t)} = \sum_{i=1}^{n} \ell ( y_i, \hat y_i^{(t-1)}+f_t(\mathbf{x}_i) )+ \Omega(f_t),
+$$
+
+em que $f_t$ representa a nova árvore e $\Omega(f_t)$ penaliza a complexidade do modelo.
+
+Uma forma clássica da penalização é:
+
+$$
+\Omega(f) = \gamma T + \frac{\lambda}{2} \sum_{j=1}^{T}w_j^2,
+$$
+
+em que:
+
+- $T$ representa o número de folhas;
+- $w_j$ representa o peso associado à folha $j$;
+- $\gamma$ penaliza o aumento do número de folhas;
+- $\lambda$ controla a regularização dos pesos.
+
+Para tornar a otimização eficiente, o XGBoost utiliza uma aproximação de segunda ordem da função de perda, envolvendo gradientes e Hessianas:
+
+$$
+g_i=\frac{\partial \ell(y_i,\hat y_i)}{\partial \hat y_i},
+$$
+
+e:
+
+$$
+h_i=\frac{\partial^2 \ell(y_i,\hat y_i)} {\partial \hat y_i^2}.
+$$
+
+Dessa forma, a escolha das novas árvores considera a direção de redução do erro e informações sobre a curvatura local da função objetivo.
+
+Conceitualmente:
+
+$$
+\boxed{\text{XGBoost} =\text{Gradient Boosting} +\text{regularização} +\text{otimização de segunda ordem}}
+$$
+
+## 21.2 LightGBM
+
+O LightGBM também implementa *gradient boosting* baseado em árvores e pode ser representado pelo mesmo modelo aditivo geral:
+$$
+F_M(\mathbf{x}) = F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}).
+$$
+A diferença principal não está em uma nova função probabilística fundamental, mas na estratégia computacional utilizada para construir e expandir as árvores.
+
+Enquanto abordagens tradicionais podem expandir árvores por nível, o LightGBM utiliza crescimento orientado pela folha com maior potencial de redução da função objetivo.
+
+Se $\Delta\mathcal{L}_j$ representa o ganho associado à divisão de uma folha $j$, essa estratégia pode ser representada conceitualmente por:
+$$
+j^*= \arg\max_j \Delta\mathcal{L}_j.
+$$
+
+Assim, em cada etapa é priorizada a folha cuja expansão produz a maior redução estimada da função objetivo.
+
+Essa estratégia pode representar estruturas complexas de maneira eficiente, embora também exija controle da complexidade por hiperparâmetros como número de folhas, profundidade máxima, tamanho mínimo das folhas e taxa de aprendizado.
+
+Conceitualmente:
+$$
+\boxed{ \text{LightGBM} = \text{Gradient Boosting}+
+\text{crescimento leaf-wise}
++\text{otimizações computacionais}
+} 
+$$
+## 21.3 Diferença matemática entre os modelos
+
+Os quatro algoritmos procuram aproximar a mesma quantidade:
+$$
+P(Y=1\mid\mathbf{x}),
+$$
+mas fazem isso por mecanismos distintos.
+
+Na Regressão Logística:
+$$
+\mathrm{logit}(p)
+=
+\beta_0+\boldsymbol{\beta}^{T}\mathbf{x},
+$$
+de modo que a estrutura fundamental é paramétrica e linear na escala do logit.
+
+Na Random Forest:
+$$
+\hat p(\mathbf{x})
+=
+\frac{1}{B}
+\sum_{b=1}^{B}
+\hat p_b(\mathbf{x}),
+$$
+de modo que a predição resulta da agregação de múltiplas árvores diversificadas.
+
+No Gradient Boosting:
+$$
+F_M(\mathbf{x})
+=
+F_0(\mathbf{x})
++
+\sum_{m=1}^{M}\eta h_m(\mathbf{x}),
+$$
+de modo que árvores são adicionadas sequencialmente para reduzir uma função de perda.
+
+No XGBoost, essa otimização inclui explicitamente regularização da complexidade:
+$$
+\text{objetivo}
+=
+\text{perda}
++
+\text{regularização}.
+$$
+No LightGBM, mantém-se a lógica de boosting, mas a construção das árvores utiliza estratégias específicas de crescimento e eficiência computacional.
+
+Assim, os algoritmos constituem diferentes hipóteses matemáticas para aproximar a relação:
+$$
+\mathbf{x}
+\longrightarrow
+P(Y=1\mid\mathbf{x}).
+$$
+Essa diversidade justifica sua comparação empírica sob o mesmo protocolo de validação temporal.
 
 ---
 
@@ -1128,11 +1182,9 @@ O objetivo foi avaliar:
 > discriminativa quando aplicado a registros posteriores?**
 
 Portanto:
-
 $$
 \boxed{\text{passado}\rightarrow\text{futuro}}
 $$
-
 Foram utilizadas janelas expansivas:
 
 | Treinamento | Validação |
@@ -1175,40 +1227,31 @@ Para uma classificação binária:
 | Real negativo | FP | TN |
 
 A sensibilidade é:
-
 $$
 Sensibilidade
 =
 \frac{TP}{TP+FN}
 $$
-
 A especificidade é:
-
 $$
 Especificidade
 =
 \frac{TN}{TN+FP}
 $$
-
 A precisão é:
-
 $$
 Precisão
 =
 \frac{TP}{TP+FP}
 $$
-
 A acurácia é:
-
 $$
 Acurácia
 =
 \frac{TP+TN}
 {TP+TN+FP+FN}
 $$
-
 O F1-score corresponde à média harmônica entre precisão e sensibilidade:
-
 $$
 F_1
 =
@@ -1216,15 +1259,12 @@ F_1
 \frac{Precisão\times Sensibilidade}
 {Precisão+Sensibilidade}
 $$
-
 A acurácia balanceada é:
-
 $$
 BA
 =
 \frac{Sensibilidade+Especificidade}{2}
 $$
-
 Essa última métrica é particularmente útil diante do desequilíbrio entre as classes.
 
 ---
@@ -1233,28 +1273,22 @@ Essa última métrica é particularmente útil diante do desequilíbrio entre as
 
 Como aproximadamente 81% dos registros da base de modelagem pertenciam à classe positiva,
 um classificador trivial:
-
 $$
 \hat Y_i=1
 \quad
 \forall i
 $$
-
 poderia apresentar acurácia elevada simplesmente reproduzindo a classe majoritária.
 
 Em 2024, por exemplo, o baseline que classificava todos os registros como positivos
 apresentava:
-
 $$
 Acurácia=0,733
 $$
-
 mas:
-
 $$
 Balanced\ Accuracy=0,500
 $$
-
 A segunda métrica revela que o classificador não possui capacidade efetiva de distinguir
 as duas classes.
 
@@ -1265,44 +1299,36 @@ Por isso, nenhuma conclusão foi baseada apenas em acurácia.
 # 25. ROC-AUC
 
 Para diferentes limiares $t$:
-
 $$
 TPR(t)
 =
 \frac{TP(t)}
 {TP(t)+FN(t)}
 $$
-
 e:
-
 $$
 FPR(t)
 =
 \frac{FP(t)}
 {FP(t)+TN(t)}
 $$
-
 A curva ROC representa:
-
 $$
 TPR(t)
 \quad\text{versus}\quad
 FPR(t)
 $$
-
 para diferentes valores do limiar.
 
 A ROC-AUC resume a capacidade discriminativa do modelo independentemente de um único ponto
 de corte.
 
 Uma interpretação probabilística comum é:
-
 $$
 AUC_{\text{ROC}}
 =
 P(\hat p_{+}>\hat p_{-})
 $$
-
 isto é, a probabilidade de uma observação positiva escolhida aleatoriamente receber score
 superior ao de uma observação negativa escolhida aleatoriamente.
 
@@ -1312,19 +1338,16 @@ superior ao de uma observação negativa escolhida aleatoriamente.
 
 Como a classe positiva era predominante, a avaliação também considerou a relação entre
 precisão e sensibilidade.
-
 $$
 Precision
 =
 \frac{TP}{TP+FP}
 $$
-
 $$
 Recall
 =
 \frac{TP}{TP+FN}
 $$
-
 A PR-AUC resume o comportamento dessas medidas ao longo dos limiares.
 
 ROC-AUC e PR-AUC foram analisadas conjuntamente, pois descrevem aspectos diferentes do
@@ -1347,11 +1370,9 @@ A Regressão Logística apresentou a maior ROC-AUC agregada e o maior valor de P
 pequena margem, além de apresentar a maior ROC-AUC em quatro das cinco janelas anuais.
 
 Entretanto, comparar apenas os valores pontuais:
-
 $$
 0,707>0,700
 $$
-
 não é suficiente para concluir que um modelo é estatisticamente superior ao outro.
 
 Foi necessário avaliar a incerteza associada à diferença observada.
@@ -1361,31 +1382,25 @@ Foi necessário avaliar a incerteza associada à diferença observada.
 # 28. Bootstrap pareado
 
 As previsões OOF comuns aos quatro modelos compreenderam:
-
 $$
-N_{\text{OOF}}=6.791
+N_{\text{OOF}}=6791
 $$
-
 observações.
 
 A comparação entre dois modelos foi realizada sobre as mesmas observações.
 
 Para modelos $A$ e $B$:
-
 $$
 \Delta ROC
 =
 ROC_A-ROC_B
 $$
-
 e:
-
 $$
 \Delta PR
 =
 PR_A-PR_B
 $$
-
 A reamostragem foi realizada de forma pareada e estratificada pelo ano de validação.
 
 ```mermaid
@@ -1400,29 +1415,21 @@ flowchart TD
 ```
 
 Para Regressão Logística versus XGBoost:
-
 $$
 \Delta ROC=0,0073
 $$
-
 com:
-
 $$
 IC_{95\%}=[-0,0036;\ 0,0183]
 $$
-
 e:
-
 $$
 \Delta PR=0,0004
 $$
-
 com:
-
 $$
 IC_{95\%}=[-0,0043;\ 0,0049]
 $$
-
 Como ambos os intervalos incluíram zero, a comparação não forneceu evidência suficiente de
 diferença entre LR e XGBoost nessas métricas.
 
@@ -1441,7 +1448,6 @@ A seleção do modelo principal foi realizada a partir do conjunto das evidênci
 terceira casa decimal de uma única métrica.
 
 Conceitualmente:
-
 $$
 M^*
 =
@@ -1452,7 +1458,6 @@ I_{\text{interpretabilidade}},
 P_{\text{parcimônia}}
 )
 $$
-
 em que:
 
 - $D_{\text{temporal}}$ representa capacidade discriminativa em períodos posteriores;
@@ -1473,7 +1478,6 @@ A Regressão Logística apresentou:
 - conexão natural com a análise inferencial subsequente.
 
 Assim, a escolha pode ser resumida por:
-
 $$
 \boxed{
 \text{desempenho competitivo}
@@ -1485,7 +1489,6 @@ $$
 \text{Regressão Logística}
 }
 $$
-
 A escolha não implica que modelos lineares sejam universalmente superiores a modelos de
 árvores.
 
@@ -1518,77 +1521,55 @@ interpretabilidade.
 # 31. Probabilidade prevista e limiar de decisão
 
 Um classificador probabilístico produz:
-
 $$
 \hat p_i=P(Y_i=1\mid X_i)
 $$
-
 mas a transformação dessa probabilidade em uma classe requer um limiar $t$:
+A regra de decisão foi definida por:
 
-$$
-\hat Y_i(t)=
-\begin{cases}
-1, & \hat p_i\geq t\\
-0, & \hat p_i<t
-\end{cases}
-$$
-
+- \(\hat{Y}_i(t)=1\), se \(\hat{p}_i \ge t\);
+- \(\hat{Y}_i(t)=0\), se \(\hat{p}_i < t\).
 O valor:
-
 $$
 t=0,50
 $$
-
 é convencional, mas não necessariamente adequado para todos os problemas.
 
 No conjunto temporal OOF, investigou-se o limiar que maximizava o equilíbrio entre
 sensibilidade e especificidade por meio do índice de Youden:
-
 $$
 J(t)
 =
 Sens(t)+Spec(t)-1
 $$
-
 equivalentemente:
-
 $$
 J(t)=TPR(t)-FPR(t)
 $$
-
 O ponto selecionado foi aproximadamente:
-
 $$
 t^*=0,88
 $$
-
 No OOF, esse limiar produziu aproximadamente:
-
 $$
 Sens=0,682
 $$
-
 $$
 Spec=0,621
 $$
-
 $$
 Precisão=0,897
 $$
-
 $$
 F_1=0,775
 $$
-
 e:
-
 $$
 BA
 =
 \frac{0,682+0,621}{2}
 \approx0,652
 $$
-
 Esse limiar **não significa que 88% represente um ponto clínico de risco**.
 
 Trata-se de um ponto de decisão estatístico obtido segundo um critério específico sobre as
@@ -1605,45 +1586,33 @@ Isso é importante porque escolher novamente o melhor limiar depois de observar 
 conjunto de avaliação produziria uma estimativa otimista da capacidade operacional.
 
 Com o limiar fixo, em 2024:
-
 $$
-TN=618,\quad FP=105,\quad FN=1.077,\quad TP=910
+TN=618,\quad FP=105,\quad FN=1077,\quad TP=910
 $$
-
 resultando aproximadamente em:
-
 $$
 Sens=0,458
 $$
-
 $$
 Spec=0,855
 $$
-
 $$
 BA=0,657
 $$
-
 Em 2025:
-
 $$
 TN=380,\quad FP=87,\quad FN=732,\quad TP=559
 $$
-
 com:
-
 $$
 Sens=0,433
 $$
-
 $$
 Spec=0,814
 $$
-
 $$
 BA=0,624
 $$
-
 Esses resultados mostram que a alteração do limiar modifica substancialmente o equilíbrio
 entre falsos positivos e falsos negativos.
 
@@ -1682,55 +1651,43 @@ Para a análise inferencial foi estimado um modelo logístico multivariável com
 robustos HC3.
 
 A amostra de casos completos utilizada nessa etapa foi:
-
 $$
-N=13.533
+N=13533
 $$
-
 sendo:
-
 $$
-N_1=10.976
+N_1=10976
 $$
-
 e:
-
 $$
-N_0=2.557
+N_0=2557
 $$
-
 O modelo possui a forma:
-
 $$
-\operatorname{logit}(p_i)
+\mathrm{logit}(p_i)
 =
 \log
-\left(
+(
 \frac{p_i}{1-p_i}
-\right)
+)
 =
 \beta_0+
 \sum_{j=1}^{p}\beta_jX_{ij}
 $$
-
 Para uma variável $X_j$:
-
 $$
 OR_j=e^{\beta_j}
 $$
-
 e, de forma simplificada, seu intervalo de confiança é obtido a partir da incerteza do
 coeficiente:
-
 $$
 IC_{95\%}(OR_j)
 =
-\left[
+[
 e^{\beta_j-1,96SE(\beta_j)},
 e^{\beta_j+1,96SE(\beta_j)}
-\right]
+]
 $$
-
 No modelo efetivamente estimado, os erros-padrão utilizados para a inferência foram robustos
 HC3.
 
@@ -1739,42 +1696,32 @@ HC3.
 # 35. Odds ratio não é probabilidade nem risco relativo
 
 Quando:
-
 $$
 OR_j>1
 $$
-
 as *odds* do desfecho são maiores em relação à categoria de referência, condicionadas às
 demais variáveis incluídas no modelo.
 
 Quando:
-
 $$
 OR_j<1
 $$
-
 as *odds* são menores.
 
 Quando:
-
 $$
 OR_j=1
 $$
-
 não existe diferença nas *odds* segundo aquela comparação.
 
 Entretanto:
-
 $$
 OR\neq RR
 $$
-
 e:
-
 $$
 OR\neq P(Y=1)
 $$
-
 Essa distinção é especialmente importante neste estudo porque o desfecho positivo é
 frequente na população modelada.
 
@@ -1790,15 +1737,12 @@ A idade não foi automaticamente imposta como efeito linear.
 Foram comparadas diferentes especificações.
 
 ### Linear
-
 $$
 \eta_i
 =
 \beta_0+\beta_1idade_i
 $$
-
 ### Quadrática
-
 $$
 \eta_i
 =
@@ -1806,7 +1750,6 @@ $$
 \beta_1idade_i+
 \beta_2idade_i^2
 $$
-
 ### Splines naturais
 
 Também foi avaliada uma representação flexível por *splines*, permitindo que a relação
@@ -1816,25 +1759,19 @@ reta ou parábola.
 A especificação quadrática foi selecionada considerando ajuste e parcimônia.
 
 Quando:
-
 $$
 \beta_2<0
 $$
-
 o vértice da função quadrática no preditor linear ocorre em:
-
 $$
 idade^*
 =
 -\frac{\beta_1}{2\beta_2}
 $$
-
 No modelo ajustado, a curva de probabilidade apresentou máximo aproximadamente em:
-
 $$
 47,6\text{ anos}
 $$
-
 Esse valor descreve a forma da associação ajustada observada.
 
 Ele **não representa uma idade clínica de corte nem demonstra causalidade**.
@@ -1899,7 +1836,6 @@ flowchart TD
 ```
 
 Há, portanto, dois caminhos que partem da mesma base de modelagem:
-
 $$
 \text{dados}
 \rightarrow
@@ -1908,7 +1844,6 @@ $$
 \text{associação e inferência}
 \end{cases}
 $$
-
 Essa separação evita confundir **performance preditiva** com **interpretação estatística**.
 
 ---
@@ -1945,25 +1880,18 @@ flowchart TB
 ```
 
 A integração não pressupõe:
-
 $$
 \text{YouTube}\rightarrow\text{SINAN}
 $$
-
 nem:
-
 $$
 \text{narrativa}_i=\text{notificação}_i
 $$
-
 e tampouco pressupõe:
-
 $$
 P_{\text{YouTube}}=P_{\text{SINAN}}
 $$
-
 A lógica é:
-
 $$
 \boxed{
 \text{fontes diferentes}
@@ -1973,7 +1901,6 @@ $$
 \text{evidências complementares}
 }
 $$
-
 O YouTube permite observar **como aspectos relacionados ao fenômeno são espontaneamente
 narrados**.
 
@@ -2020,7 +1947,6 @@ forma cientificamente defensável.
 # 41. Reprodutibilidade
 
 A implementação foi estruturada para preservar a distinção entre:
-
 $$
 \boxed{
 \text{dado bruto}
@@ -2034,7 +1960,6 @@ $$
 \text{interpretação}
 }
 $$
-
 Os microdados brutos não são armazenados neste repositório.
 
 Credenciais, chaves de API, ambientes virtuais e arquivos locais também não são
