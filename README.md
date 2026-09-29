@@ -1342,12 +1342,10 @@ observações.
 A comparação entre dois modelos foi realizada sobre as mesmas observações.
 
 Para modelos $A$ e $B$:
-
 $$\Delta ROC=ROC_A-ROC_B$$
 
 e:
-
-$$ \Delta PR=PR_A-PR_B$$
+$$\Delta PR=PR_A-PR_B$$
 
 A reamostragem foi realizada de forma pareada e estratificada pelo ano de validação.
 
@@ -1366,25 +1364,25 @@ flowchart TD
 Para Regressão Logística versus XGBoost:
 
 $$
-\Delta ROC=0,0073
+\Delta \mathrm{ROC} = 0{,}0073
 $$
 
-com:
+com IC 95%:
 
 $$
-IC_{95\%}=[-0,0036;\ 0,0183]
+[-0{,}0036;\ 0{,}0183]
 $$
 
 e:
 
 $$
-\Delta PR=0,0004
+\Delta \mathrm{PR} = 0{,}0004
 $$
 
-com:
+com IC 95%:
 
 $$
-IC_{95\%}=[-0,0043;\ 0,0049]
+[-0{,}0043;\ 0{,}0049]
 $$
 
 Como ambos os intervalos incluíram zero, a comparação não forneceu evidência suficiente de
@@ -1603,44 +1601,45 @@ Por isso, as duas etapas foram tratadas separadamente.
 
 # 34. Regressão Logística inferencial
 
-Para a análise inferencial foi estimado um modelo logístico multivariável com erros-padrão
-robustos HC3.
+Para a análise inferencial foi estimado um modelo logístico multivariável com erros-padrão robustos HC3.
 
 A amostra de casos completos utilizada nessa etapa foi:
 
-$$N=13533$$
+$$
+N = 13533
+$$
 
 sendo:
 
-$$ N_1=10976 $$
+$$
+N_1 = 10976
+$$
 
 e:
 
-$$ N_0=2557$$
+$$
+N_0 = 2557
+$$
 
 O modelo possui a forma:
 
-$$\mathrm{logit}(p_i) =\log
-(\frac{p_i}{1-p_i})= \beta_0+\sum_{j=1}^{p}\beta_jX_{ij}$$
+$$
+\mathrm{logit}(p_i)=\log\left(\frac{p_i}{1-p_i}\right)=\beta_0 + \sum_{j=1}^{p}\beta_j X_{ij}$$
 
 Para uma variável $X_j$:
 
 $$
-OR_j=e^{\beta_j}
+OR_j = e^{\beta_j}
 $$
 
-e, de forma simplificada, seu intervalo de confiança é obtido a partir da incerteza do
-coeficiente:
+e, de forma simplificada, seu intervalo de confiança é obtido a partir da incerteza do coeficiente.
 
-$$ IC_{95\%}(OR_j) =
-[
-e^{\beta_j-1,96SE(\beta_j)},
-e^{\beta_j+1,96SE(\beta_j)}
-]
+Para o IC 95%:
+
 $$
+\left[e^{\beta_j - 1{,}96\,SE(\beta_j)},\;e^{\beta_j + 1{,}96\,SE(\beta_j)}\right]$$
 
-No modelo efetivamente estimado, os erros-padrão utilizados para a inferência foram robustos
-HC3.
+No modelo efetivamente estimado, os erros-padrão utilizados para a inferência foram robustos HC3.
 
 ---
 
@@ -1649,23 +1648,23 @@ HC3.
 Quando:
 
 $$
-OR_j>1
+OR_j > 1
 $$
 
-as *odds* do desfecho são maiores em relação à categoria de referência, condicionadas às
-demais variáveis incluídas no modelo.
+as *odds* do desfecho são maiores em relação à categoria de referência, condicionadas às demais variáveis incluídas no modelo.
 
 Quando:
 
 $$
-OR_j<1
+OR_j < 1
 $$
 
 as *odds* são menores.
 
 Quando:
+
 $$
-OR_j=1
+OR_j = 1
 $$
 
 não existe diferença nas *odds* segundo aquela comparação.
@@ -1673,23 +1672,20 @@ não existe diferença nas *odds* segundo aquela comparação.
 Entretanto:
 
 $$
-OR\neq RR
+OR \neq RR
 $$
 
 e:
 
 $$
-OR\neq P(Y=1)
+OR \neq P(Y=1)
 $$
 
-Essa distinção é especialmente importante neste estudo porque o desfecho positivo é
-frequente na população modelada.
+Essa distinção é especialmente importante neste estudo porque o desfecho positivo é frequente na população modelada.
 
-Os resultados foram, portanto, interpretados como **associações ajustadas**, não como
-efeitos causais.
+Os resultados foram, portanto, interpretados como **associações ajustadas**, não como efeitos causais.
 
 ---
-
 # 36. Forma funcional da idade
 
 A idade não foi automaticamente imposta como efeito linear.
