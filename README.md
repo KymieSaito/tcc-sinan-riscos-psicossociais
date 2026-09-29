@@ -1011,34 +1011,26 @@ Diferentemente da Random Forest, na qual as árvores são construídas de forma 
 
 O modelo aditivo após $M$ etapas pode ser representado por:
 
-$$
-F_M(\mathbf{x})= F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}),
-$$
+$$ F_M(\mathbf{x})= F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}),$$
 
 em que:
 
-- $$F_0(\mathbf{x})$ representa a estimativa inicial;
-- $$h_m(\mathbf{x})$ representa a árvore adicionada na etapa $m$;
+- $F_0(\mathbf{x})$ representa a estimativa inicial;
+- $h_m(\mathbf{x})$ representa a árvore adicionada na etapa $m$;
 - $\eta$ representa a taxa de aprendizado;
 - $M$ representa o número de etapas de boosting.
 
 A atualização sequencial é:
 
-$$
-F_m(\mathbf{x}) = F_{m-1}(\mathbf{x}) + \eta h_m(\mathbf{x}).
-$$
+$$F_m(\mathbf{x}) = F_{m-1}(\mathbf{x}) + \eta h_m(\mathbf{x}).$$
 
 Cada nova árvore é construída com o objetivo de reduzir uma função de perda. De forma geral:
 
-$$
-\mathcal{L} = \sum_{i=1}^{n} \ell(y_i,\hat y_i).
-$$
+$$\mathcal{L} = \sum_{i=1}^{n} \ell(y_i,\hat y_i).$$
 
 Para classificação binária probabilística, uma função de perda comum é a log-loss:
 
-$$
-\ell(y_i,p_i)=-[y_i\log(p_i)+(1-y_i)\log(1-p_i)].
-$$
+$$\ell(y_i,p_i)=-[y_i\log(p_i)+(1-y_i)\log(1-p_i)].$$
 
 Assim, o treinamento procura sucessivamente modificar $F(\mathbf{x})$ para reduzir o erro segundo a função objetivo.
 
@@ -1090,81 +1082,70 @@ $$
 ## 21.2 LightGBM
 
 O LightGBM também implementa *gradient boosting* baseado em árvores e pode ser representado pelo mesmo modelo aditivo geral:
+
 $$
 F_M(\mathbf{x}) = F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}).
 $$
+
 A diferença principal não está em uma nova função probabilística fundamental, mas na estratégia computacional utilizada para construir e expandir as árvores.
 
 Enquanto abordagens tradicionais podem expandir árvores por nível, o LightGBM utiliza crescimento orientado pela folha com maior potencial de redução da função objetivo.
 
 Se $\Delta\mathcal{L}_j$ representa o ganho associado à divisão de uma folha $j$, essa estratégia pode ser representada conceitualmente por:
-$$
-j^*= \arg\max_j \Delta\mathcal{L}_j.
-$$
+
+$$ j^*= \arg\max_j \Delta\mathcal{L}_j. $$
 
 Assim, em cada etapa é priorizada a folha cuja expansão produz a maior redução estimada da função objetivo.
 
 Essa estratégia pode representar estruturas complexas de maneira eficiente, embora também exija controle da complexidade por hiperparâmetros como número de folhas, profundidade máxima, tamanho mínimo das folhas e taxa de aprendizado.
 
 Conceitualmente:
-$$
-\boxed{ \text{LightGBM} = \text{Gradient Boosting}+
-\text{crescimento leaf-wise}
-+\text{otimizações computacionais}
-} 
-$$
+
+$$\boxed{ \text{LightGBM} = \text{Gradient Boosting}+\text{crescimento leaf-wise}+\text{otimizações computacionais}}$$
+
 ## 21.3 Diferença matemática entre os modelos
 
 Os quatro algoritmos procuram aproximar a mesma quantidade:
+
 $$
 P(Y=1\mid\mathbf{x}),
 $$
+
 mas fazem isso por mecanismos distintos.
 
 Na Regressão Logística:
-$$
-\mathrm{logit}(p)
-=
-\beta_0+\boldsymbol{\beta}^{T}\mathbf{x},
-$$
+
+$$\mathrm{logit}(p)=\beta_0+\boldsymbol{\beta}^{T}\mathbf{x}, $$
+
 de modo que a estrutura fundamental é paramétrica e linear na escala do logit.
 
 Na Random Forest:
-$$
-\hat p(\mathbf{x})
-=
-\frac{1}{B}
-\sum_{b=1}^{B}
-\hat p_b(\mathbf{x}),
-$$
+
+$$\hat p(\mathbf{x}) = \frac{1}{B}\sum_{b=1}^{B} \hat p_b(\mathbf{x}),$$
+
 de modo que a predição resulta da agregação de múltiplas árvores diversificadas.
 
 No Gradient Boosting:
-$$
-F_M(\mathbf{x})
-=
-F_0(\mathbf{x})
-+
-\sum_{m=1}^{M}\eta h_m(\mathbf{x}),
-$$
+
+$$ F_M(\mathbf{x}) = F_0(\mathbf{x}) + \sum_{m=1}^{M}\eta h_m(\mathbf{x}),$$ 
+
 de modo que árvores são adicionadas sequencialmente para reduzir uma função de perda.
 
 No XGBoost, essa otimização inclui explicitamente regularização da complexidade:
+
+$$ \text{objetivo}=\text{perda}+\text{regularização}.
 $$
-\text{objetivo}
-=
-\text{perda}
-+
-\text{regularização}.
-$$
+
 No LightGBM, mantém-se a lógica de boosting, mas a construção das árvores utiliza estratégias específicas de crescimento e eficiência computacional.
 
 Assim, os algoritmos constituem diferentes hipóteses matemáticas para aproximar a relação:
+
 $$
 \mathbf{x}
 \longrightarrow
 P(Y=1\mid\mathbf{x}).
 $$
+
 Essa diversidade justifica sua comparação empírica sob o mesmo protocolo de validação temporal.
 
 ---
@@ -1182,9 +1163,9 @@ O objetivo foi avaliar:
 > discriminativa quando aplicado a registros posteriores?**
 
 Portanto:
-$$
-\boxed{\text{passado}\rightarrow\text{futuro}}
-$$
+
+$$\boxed{\text{passado}\rightarrow\text{futuro}}$$
+
 Foram utilizadas janelas expansivas:
 
 | Treinamento | Validação |
@@ -1227,43 +1208,27 @@ Para uma classificação binária:
 | Real negativo | FP | TN |
 
 A sensibilidade é:
-$$
-Sensibilidade
-=
-\frac{TP}{TP+FN}
-$$
+
+$$ Sensibilidade = frac{TP}{TP+FN} $$
+
 A especificidade é:
-$$
-Especificidade
-=
-\frac{TN}{TN+FP}
-$$
+
+$$ Especificidade = \frac{TN}{TN+FP} $$
+
 A precisão é:
-$$
-Precisão
-=
-\frac{TP}{TP+FP}
-$$
+
+$$ Precisão = \frac{TP}{TP+FP} $$
+
 A acurácia é:
-$$
-Acurácia
-=
-\frac{TP+TN}
-{TP+TN+FP+FN}
-$$
+$$ Acurácia = \frac{TP+TN} {TP+TN+FP+FN} $$
+
 O F1-score corresponde à média harmônica entre precisão e sensibilidade:
-$$
-F_1
-=
-2
-\frac{Precisão\times Sensibilidade}
-{Precisão+Sensibilidade}
-$$
+
+$$ F_1=2\frac{Precisão\times Sensibilidade}{Precisão+Sensibilidade}$$
+
 A acurácia balanceada é:
-$$
-BA
-=
-\frac{Sensibilidade+Especificidade}{2}
+
+$$BA=\frac{Sensibilidade+Especificidade}{2}
 $$
 Essa última métrica é particularmente útil diante do desequilíbrio entre as classes.
 
@@ -1273,10 +1238,8 @@ Essa última métrica é particularmente útil diante do desequilíbrio entre as
 
 Como aproximadamente 81% dos registros da base de modelagem pertenciam à classe positiva,
 um classificador trivial:
-$$
-\hat Y_i=1
-\quad
-\forall i
+
+$$\hat Y_i=1\quad\forall i
 $$
 poderia apresentar acurácia elevada simplesmente reproduzindo a classe majoritária.
 
@@ -1324,11 +1287,9 @@ A ROC-AUC resume a capacidade discriminativa do modelo independentemente de um �
 de corte.
 
 Uma interpretação probabilística comum é:
-$$
-AUC_{\text{ROC}}
-=
-P(\hat p_{+}>\hat p_{-})
-$$
+
+$$AUC_{\text{ROC}}=P(\hat p_{+}>\hat p_{-})$$
+
 isto é, a probabilidade de uma observação positiva escolhida aleatoriamente receber score
 superior ao de uma observação negativa escolhida aleatoriamente.
 
@@ -1338,16 +1299,11 @@ superior ao de uma observação negativa escolhida aleatoriamente.
 
 Como a classe positiva era predominante, a avaliação também considerou a relação entre
 precisão e sensibilidade.
-$$
-Precision
-=
-\frac{TP}{TP+FP}
-$$
-$$
-Recall
-=
-\frac{TP}{TP+FN}
-$$
+
+$$Precision=\frac{TP}{TP+FP}$$
+
+$$Recall=\frac{TP}{TP+FN}$$
+
 A PR-AUC resume o comportamento dessas medidas ao longo dos limiares.
 
 ROC-AUC e PR-AUC foram analisadas conjuntamente, pois descrevem aspectos diferentes do
@@ -1370,9 +1326,7 @@ A Regressão Logística apresentou a maior ROC-AUC agregada e o maior valor de P
 pequena margem, além de apresentar a maior ROC-AUC em quatro das cinco janelas anuais.
 
 Entretanto, comparar apenas os valores pontuais:
-$$
-0,707>0,700
-$$
+$$ 0,707>0,700$$
 não é suficiente para concluir que um modelo é estatisticamente superior ao outro.
 
 Foi necessário avaliar a incerteza associada à diferença observada.
@@ -1390,17 +1344,12 @@ observações.
 A comparação entre dois modelos foi realizada sobre as mesmas observações.
 
 Para modelos $A$ e $B$:
-$$
-\Delta ROC
-=
-ROC_A-ROC_B
-$$
+
+$$\Delta ROC=ROC_A-ROC_B$$
+
 e:
-$$
-\Delta PR
-=
-PR_A-PR_B
-$$
+
+$$ \Delta PR=PR_A-PR_B$$
 A reamostragem foi realizada de forma pareada e estratificada pelo ano de validação.
 
 ```mermaid
@@ -1448,16 +1397,13 @@ A seleção do modelo principal foi realizada a partir do conjunto das evidênci
 terceira casa decimal de uma única métrica.
 
 Conceitualmente:
-$$
-M^*
-=
-f(
-D_{\text{temporal}},
+
+$$M^*= f( D_{\text{temporal}},
 E_{\text{estabilidade}},
 I_{\text{interpretabilidade}},
 P_{\text{parcimônia}}
-)
-$$
+)$$
+
 em que:
 
 - $D_{\text{temporal}}$ representa capacidade discriminativa em períodos posteriores;
@@ -1537,39 +1483,29 @@ $$
 
 No conjunto temporal OOF, investigou-se o limiar que maximizava o equilíbrio entre
 sensibilidade e especificidade por meio do índice de Youden:
-$$
-J(t)
-=
-Sens(t)+Spec(t)-1
-$$
+
+$$ J(t) = Sens(t)+Spec(t)-1 $$
+
 equivalentemente:
-$$
-J(t)=TPR(t)-FPR(t)
-$$
+
+$$J(t)=TPR(t)-FPR(t)$$
+
 O ponto selecionado foi aproximadamente:
-$$
-t^*=0,88
-$$
+$$ t^*=0,88 $$
+
 No OOF, esse limiar produziu aproximadamente:
-$$
-Sens=0,682
-$$
-$$
-Spec=0,621
-$$
-$$
-Precisão=0,897
-$$
-$$
-F_1=0,775
-$$
+$$ Sens=0,682 $$
+
+$$Spec=0,621$$
+
+$$Precisão=0,897$$
+
+$$ F_1=0,775$$
+
 e:
+$$ BA=\frac{0,682+0,621}{2}\approx0,652
 $$
-BA
-=
-\frac{0,682+0,621}{2}
-\approx0,652
-$$
+
 Esse limiar **não significa que 88% represente um ponto clínico de risco**.
 
 Trata-se de um ponto de decisão estatístico obtido segundo um critério específico sobre as
@@ -1651,38 +1587,32 @@ Para a análise inferencial foi estimado um modelo logístico multivariável com
 robustos HC3.
 
 A amostra de casos completos utilizada nessa etapa foi:
-$$
-N=13533
-$$
+
+$$N=13533$$
+
 sendo:
-$$
-N_1=10976
-$$
+
+$$ N_1=10976 $$
+
 e:
-$$
-N_0=2557
-$$
+
+$$ N_0=2557$$
+
 O modelo possui a forma:
-$$
-\mathrm{logit}(p_i)
-=
-\log
-(
-\frac{p_i}{1-p_i}
-)
-=
-\beta_0+
-\sum_{j=1}^{p}\beta_jX_{ij}
-$$
+
+$$\mathrm{logit}(p_i) =\log
+(\frac{p_i}{1-p_i})= \beta_0+\sum_{j=1}^{p}\beta_jX_{ij}$$
+
 Para uma variável $X_j$:
+
 $$
 OR_j=e^{\beta_j}
 $$
+
 e, de forma simplificada, seu intervalo de confiança é obtido a partir da incerteza do
 coeficiente:
-$$
-IC_{95\%}(OR_j)
-=
+
+$$ IC_{95\%}(OR_j) =
 [
 e^{\beta_j-1,96SE(\beta_j)},
 e^{\beta_j+1,96SE(\beta_j)}
@@ -1737,19 +1667,16 @@ A idade não foi automaticamente imposta como efeito linear.
 Foram comparadas diferentes especificações.
 
 ### Linear
+
+$$ \eta_i = \beta_0+\beta_1idade_i
 $$
-\eta_i
-=
-\beta_0+\beta_1idade_i
-$$
+
 ### Quadrática
-$$
-\eta_i
-=
-\beta_0+
-\beta_1idade_i+
+
+$$ \eta_i = \beta_0 + \beta_1idade_i+
 \beta_2idade_i^2
 $$
+
 ### Splines naturais
 
 Também foi avaliada uma representação flexível por *splines*, permitindo que a relação
@@ -1759,19 +1686,18 @@ reta ou parábola.
 A especificação quadrática foi selecionada considerando ajuste e parcimônia.
 
 Quando:
-$$
-\beta_2<0
-$$
+
+$$ \beta_2<0 $$
+
 o vértice da função quadrática no preditor linear ocorre em:
+
+$$ idade^* = -\frac{\beta_1}{2\beta_2}
 $$
-idade^*
-=
--\frac{\beta_1}{2\beta_2}
-$$
+
 No modelo ajustado, a curva de probabilidade apresentou máximo aproximadamente em:
-$$
-47,6\text{ anos}
-$$
+
+$$ 47,6\text{ anos} $$
+
 Esse valor descreve a forma da associação ajustada observada.
 
 Ele **não representa uma idade clínica de corte nem demonstra causalidade**.
