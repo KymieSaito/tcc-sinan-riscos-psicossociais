@@ -1220,6 +1220,7 @@ A precisão é:
 $$ Precisão = \frac{TP}{TP+FP} $$
 
 A acurácia é:
+
 $$ Acurácia = \frac{TP+TN} {TP+TN+FP+FN} $$
 
 O F1-score corresponde à média harmônica entre precisão e sensibilidade:
@@ -1228,8 +1229,8 @@ $$ F_1=2\frac{Precisão\times Sensibilidade}{Precisão+Sensibilidade}$$
 
 A acurácia balanceada é:
 
-$$BA=\frac{Sensibilidade+Especificidade}{2}
-$$
+$$BA=\frac{Sensibilidade+Especificidade}{2}$$
+
 Essa última métrica é particularmente útil diante do desequilíbrio entre as classes.
 
 ---
@@ -1239,19 +1240,19 @@ Essa última métrica é particularmente útil diante do desequilíbrio entre as
 Como aproximadamente 81% dos registros da base de modelagem pertenciam à classe positiva,
 um classificador trivial:
 
-$$\hat Y_i=1\quad\forall i
-$$
+$$\hat Y_i=1\quad\forall i $$
+
 poderia apresentar acurácia elevada simplesmente reproduzindo a classe majoritária.
 
 Em 2024, por exemplo, o baseline que classificava todos os registros como positivos
 apresentava:
-$$
-Acurácia=0,733
-$$
+
+$$Acurácia=0,733$$
+
 mas:
-$$
-Balanced\ Accuracy=0,500
-$$
+
+$$Balanced\ Accuracy=0,500$$
+
 A segunda métrica revela que o classificador não possui capacidade efetiva de distinguir
 as duas classes.
 
@@ -1262,25 +1263,17 @@ Por isso, nenhuma conclusão foi baseada apenas em acurácia.
 # 25. ROC-AUC
 
 Para diferentes limiares $t$:
-$$
-TPR(t)
-=
-\frac{TP(t)}
-{TP(t)+FN(t)}
-$$
+
+$$ TPR(t) = \frac{TP(t)}{TP(t)+FN(t)}$$
+
 e:
-$$
-FPR(t)
-=
-\frac{FP(t)}
-{FP(t)+TN(t)}
-$$
+
+$$ FPR(t)= \frac{FP(t)} {FP(t)+TN(t)}$$
+
 A curva ROC representa:
-$$
-TPR(t)
-\quad\text{versus}\quad
-FPR(t)
-$$
+
+$$TPR(t)\quad\text{versus}\quadFPR(t)$$
+
 para diferentes valores do limiar.
 
 A ROC-AUC resume a capacidade discriminativa do modelo independentemente de um único ponto
@@ -1288,8 +1281,8 @@ de corte.
 
 Uma interpretação probabilística comum é:
 
-$$AUC_{\text{ROC}}=P(\hat p_{+}>\hat p_{-})$$
-
+$$ AUC_{\text{ROC}}=P(\hat p_{+}>\hat p_{-}) $$
+ 
 isto é, a probabilidade de uma observação positiva escolhida aleatoriamente receber score
 superior ao de uma observação negativa escolhida aleatoriamente.
 
@@ -1301,6 +1294,7 @@ Como a classe positiva era predominante, a avaliação também considerou a rela
 precisão e sensibilidade.
 
 $$Precision=\frac{TP}{TP+FP}$$
+
 
 $$Recall=\frac{TP}{TP+FN}$$
 
@@ -1326,7 +1320,9 @@ A Regressão Logística apresentou a maior ROC-AUC agregada e o maior valor de P
 pequena margem, além de apresentar a maior ROC-AUC em quatro das cinco janelas anuais.
 
 Entretanto, comparar apenas os valores pontuais:
-$$ 0,707>0,700$$
+
+$$ 0,707>0,700 $$
+
 não é suficiente para concluir que um modelo é estatisticamente superior ao outro.
 
 Foi necessário avaliar a incerteza associada à diferença observada.
@@ -1336,9 +1332,11 @@ Foi necessário avaliar a incerteza associada à diferença observada.
 # 28. Bootstrap pareado
 
 As previsões OOF comuns aos quatro modelos compreenderam:
+
 $$
 N_{\text{OOF}}=6791
 $$
+
 observações.
 
 A comparação entre dois modelos foi realizada sobre as mesmas observações.
@@ -1350,7 +1348,9 @@ $$\Delta ROC=ROC_A-ROC_B$$
 e:
 
 $$ \Delta PR=PR_A-PR_B$$
+
 A reamostragem foi realizada de forma pareada e estratificada pelo ano de validação.
+
 
 ```mermaid
 flowchart TD
@@ -1364,21 +1364,29 @@ flowchart TD
 ```
 
 Para Regressão Logística versus XGBoost:
+
 $$
 \Delta ROC=0,0073
 $$
+
 com:
+
 $$
 IC_{95\%}=[-0,0036;\ 0,0183]
 $$
+
 e:
+
 $$
 \Delta PR=0,0004
 $$
+
 com:
+
 $$
 IC_{95\%}=[-0,0043;\ 0,0049]
 $$
+
 Como ambos os intervalos incluíram zero, a comparação não forneceu evidência suficiente de
 diferença entre LR e XGBoost nessas métricas.
 
@@ -1398,11 +1406,7 @@ terceira casa decimal de uma única métrica.
 
 Conceitualmente:
 
-$$M^*= f( D_{\text{temporal}},
-E_{\text{estabilidade}},
-I_{\text{interpretabilidade}},
-P_{\text{parcimônia}}
-)$$
+$$M^*= f( D_{\text{temporal}},E_{\text{estabilidade}},I_{\text{interpretabilidade}},P_{\text{parcimônia}})$$
 
 em que:
 
@@ -1424,17 +1428,12 @@ A Regressão Logística apresentou:
 - conexão natural com a análise inferencial subsequente.
 
 Assim, a escolha pode ser resumida por:
-$$
-\boxed{
-\text{desempenho competitivo}
-+
-\text{parcimônia}
-+
-\text{interpretabilidade}
-\Rightarrow
+
+$$\boxed{
+\text{desempenho competitivo}+\text{parcimônia}+\text{interpretabilidade}\Rightarrow
 \text{Regressão Logística}
-}
-$$
+}$$
+
 A escolha não implica que modelos lineares sejam universalmente superiores a modelos de
 árvores.
 
@@ -1467,18 +1466,23 @@ interpretabilidade.
 # 31. Probabilidade prevista e limiar de decisão
 
 Um classificador probabilístico produz:
+
 $$
 \hat p_i=P(Y_i=1\mid X_i)
 $$
+
 mas a transformação dessa probabilidade em uma classe requer um limiar $t$:
 A regra de decisão foi definida por:
 
 - \(\hat{Y}_i(t)=1\), se \(\hat{p}_i \ge t\);
 - \(\hat{Y}_i(t)=0\), se \(\hat{p}_i < t\).
+
 O valor:
+
 $$
 t=0,50
 $$
+
 é convencional, mas não necessariamente adequado para todos os problemas.
 
 No conjunto temporal OOF, investigou-se o limiar que maximizava o equilíbrio entre
@@ -1491,9 +1495,11 @@ equivalentemente:
 $$J(t)=TPR(t)-FPR(t)$$
 
 O ponto selecionado foi aproximadamente:
+
 $$ t^*=0,88 $$
 
 No OOF, esse limiar produziu aproximadamente:
+
 $$ Sens=0,682 $$
 
 $$Spec=0,621$$
@@ -1503,6 +1509,7 @@ $$Precisão=0,897$$
 $$ F_1=0,775$$
 
 e:
+
 $$ BA=\frac{0,682+0,621}{2}\approx0,652
 $$
 
@@ -1522,33 +1529,46 @@ Isso é importante porque escolher novamente o melhor limiar depois de observar 
 conjunto de avaliação produziria uma estimativa otimista da capacidade operacional.
 
 Com o limiar fixo, em 2024:
+
 $$
 TN=618,\quad FP=105,\quad FN=1077,\quad TP=910
 $$
+
 resultando aproximadamente em:
+
+
 $$
 Sens=0,458
 $$
+
 $$
 Spec=0,855
 $$
+
 $$
 BA=0,657
 $$
+
 Em 2025:
+
 $$
 TN=380,\quad FP=87,\quad FN=732,\quad TP=559
 $$
+
 com:
+
 $$
 Sens=0,433
 $$
+
 $$
 Spec=0,814
 $$
+
 $$
 BA=0,624
 $$
+
 Esses resultados mostram que a alteração do limiar modifica substancialmente o equilíbrio
 entre falsos positivos e falsos negativos.
 
@@ -1618,6 +1638,7 @@ e^{\beta_j-1,96SE(\beta_j)},
 e^{\beta_j+1,96SE(\beta_j)}
 ]
 $$
+
 No modelo efetivamente estimado, os erros-padrão utilizados para a inferência foram robustos
 HC3.
 
@@ -1626,32 +1647,41 @@ HC3.
 # 35. Odds ratio não é probabilidade nem risco relativo
 
 Quando:
+
 $$
 OR_j>1
 $$
+
 as *odds* do desfecho são maiores em relação à categoria de referência, condicionadas às
 demais variáveis incluídas no modelo.
 
 Quando:
+
 $$
 OR_j<1
 $$
+
 as *odds* são menores.
 
 Quando:
 $$
 OR_j=1
 $$
+
 não existe diferença nas *odds* segundo aquela comparação.
 
 Entretanto:
+
 $$
 OR\neq RR
 $$
+
 e:
+
 $$
 OR\neq P(Y=1)
 $$
+
 Essa distinção é especialmente importante neste estudo porque o desfecho positivo é
 frequente na população modelada.
 
@@ -1762,6 +1792,7 @@ flowchart TD
 ```
 
 Há, portanto, dois caminhos que partem da mesma base de modelagem:
+
 $$
 \text{dados}
 \rightarrow
@@ -1770,6 +1801,7 @@ $$
 \text{associação e inferência}
 \end{cases}
 $$
+
 Essa separação evita confundir **performance preditiva** com **interpretação estatística**.
 
 ---
@@ -1806,18 +1838,25 @@ flowchart TB
 ```
 
 A integração não pressupõe:
+
 $$
 \text{YouTube}\rightarrow\text{SINAN}
 $$
+
 nem:
+
 $$
 \text{narrativa}_i=\text{notificação}_i
 $$
+
 e tampouco pressupõe:
+
 $$
 P_{\text{YouTube}}=P_{\text{SINAN}}
 $$
+
 A lógica é:
+
 $$
 \boxed{
 \text{fontes diferentes}
@@ -1826,7 +1865,9 @@ $$
 \rightarrow
 \text{evidências complementares}
 }
+
 $$
+
 O YouTube permite observar **como aspectos relacionados ao fenômeno são espontaneamente
 narrados**.
 
@@ -1873,6 +1914,8 @@ forma cientificamente defensável.
 # 41. Reprodutibilidade
 
 A implementação foi estruturada para preservar a distinção entre:
+
+
 $$
 \boxed{
 \text{dado bruto}
@@ -1886,6 +1929,7 @@ $$
 \text{interpretação}
 }
 $$
+
 Os microdados brutos não são armazenados neste repositório.
 
 Credenciais, chaves de API, ambientes virtuais e arquivos locais também não são
