@@ -1,3 +1,4 @@
+Utilizei o IBM Bob para desenvolver e configurar, localmente, um servidor baseado no Model Context Protocol (MCP), criando uma camada de integração entre um agente de IA e dados do SINAN armazenados no Appwrite Cloud. O servidor expõe ferramentas controladas para consulta e manipulação dos documentos, utilizando o SDK do Appwrite e mantendo credenciais e configurações separadas do código por meio de variáveis de ambiente.
 # SINAN MCP Explorer
 
 Projeto desenvolvido como personalização do desafio **Construindo seu Primeiro Produto com um Agente de IA**, da **Digital Innovation One (DIO)**, utilizando o **IBM Bob** como agente de apoio ao desenvolvimento.
