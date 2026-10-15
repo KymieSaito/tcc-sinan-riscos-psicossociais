@@ -2,7 +2,7 @@
 
 **Repositório de pesquisa | MBA em Data Science & Analytics — USP/ESALQ | 2026**  
 **Autora:** Kymie Karina Silva Saito  
-**Situação:** documentação em revisão para correspondência com o TCC; repositório privado.
+**Situação:** documentação em revisão para correspondência com o TCC; repositório público.
 
 > **Escopo.** Este repositório documenta dois eixos analíticos independentes: (1) narrativas públicas sobre saúde mental e riscos psicossociais no YouTube; e (2) registros de transtornos mentais relacionados ao trabalho no SINAN. A integração é **interpretativa**, sem vinculação individual, *merge* ou inferência de representatividade comum. O README prioriza os resultados descritos na versão do TCC fornecida em 15/10/2026. Quando a execução integral do código ou a correspondência de arquivos ainda não foi auditada, isso é indicado explicitamente.
 
@@ -83,33 +83,44 @@ O texto metodológico do TCC lista **dez descritores por eixo (50 descritores li
 
 A fração selecionada foi $2035/5879\approx 34,61\%$. Esses denominadores são distintos e não devem ser intercambiados.
 
+
 ### 3.3 Representação semântica e classificação de relevância
 
-A metodologia do TCC descreve embeddings obtidos com `paraphrase-multilingual-mpnet-base-v2` (Sentence Transformers), usados como preditores em **Regressão Logística binária** para relevância temática, treinada com comentários rotulados manualmente.
+A metodologia do TCC descreve representações semânticas (*embeddings*) obtidas com o modelo `paraphrase-multilingual-mpnet-base-v2`, da biblioteca Sentence Transformers. Essas representações foram utilizadas como variáveis preditoras em um modelo de **Regressão Logística binária**, treinado com comentários rotulados manualmente para classificação da relevância temática.
 
-Para um comentário $x_i$, o encoder fornece:
+Para cada comentário, o modelo de linguagem produz um vetor de representação semântica:
 
-$$
-\mathbf z_i=f_{\mathrm{encoder}}(x_i)\in\mathbb R^d.
-$$
+```math
+\mathbf{z}_i = f_{\mathrm{encoder}}(x_i) \in \mathbb{R}^{d}
+```
 
-Para vetores não nulos, a similaridade do cosseno é:
+em que `x_i` representa o comentário, `z_i` corresponde ao vetor de características semânticas e `d` indica a dimensionalidade da representação.
 
-$$
-\operatorname{sim}(\mathbf u,\mathbf v)=
-\frac{\mathbf u^\top\mathbf v}{\|\mathbf u\|_2\|\mathbf v\|_2}.
-$$
+A similaridade do cosseno entre dois vetores não nulos pode ser expressa por:
 
-A probabilidade de relevância na regressão logística pode ser representada por:
+```math
+\mathrm{sim}(\mathbf{u},\mathbf{v}) =
+\frac{\mathbf{u}^{T}\mathbf{v}}
+{\lVert\mathbf{u}\rVert_2 \lVert\mathbf{v}\rVert_2}
+```
 
-$$
-\hat p_i=P(R_i=1\mid\mathbf z_i)
-=\sigma(\beta_0+\boldsymbol\beta^\top\mathbf z_i),
-\qquad
-\sigma(a)=\frac{1}{1+e^{-a}}.
-$$
+A probabilidade estimada de relevância temática pela Regressão Logística é definida por:
 
-O TCC relata avaliação de limiares em **280 comentários independentes** e adoção do ponto de corte **0,60**, com comparação de precisão, recall, F1, acurácia e acurácia balanceada. A composição exata dos conjuntos de treino e rotulação deve ser conferida nos artefatos de execução.
+```math
+\hat{p}_i =
+P(R_i=1\mid\mathbf{z}_i) =
+\sigma\left(\beta_0+\boldsymbol{\beta}^{T}\mathbf{z}_i\right)
+```
+
+A função sigmoide é dada por:
+
+```math
+\sigma(a)=\frac{1}{1+e^{-a}}
+```
+
+O TCC relata a avaliação de diferentes limiares de classificação em **280 comentários independentes**, com adoção do ponto de corte de **0,60**. O desempenho foi examinado por meio das métricas de precisão, sensibilidade (*recall*), F1-score, acurácia e acurácia balanceada.
+
+A composição exata dos conjuntos de treinamento, validação e rotulação deve ser verificada nos respectivos artefatos de execução, assegurando a rastreabilidade metodológica.
 
 ### 3.4 Sentimento
 
@@ -117,10 +128,7 @@ Após a seleção por relevância, o TCC descreve o classificador pré-treinado 
 
 Para as classes negativa, neutra e positiva, a regra de predição é:
 
-$$
-\hat s_i=\arg\max_{k\in\{\mathrm{neg},\mathrm{neu},\mathrm{pos}\}}
-P(S_i=k\mid x_i).
-$$
+$$\hat s_i=\arg\max_{k\in\{\mathrm{neg},\mathrm{neu},\mathrm{pos}\}}P(S_i=k\mid x_i).$$
 
 O TCC descreve uma avaliação humana cega e estratificada de **180 comentários**, 60 por classe prevista, com opção de rótulo *duvidoso*. São relatadas matriz de confusão, métricas de classificação e $\kappa$ de Cohen, com ressalva de ausência de múltiplos avaliadores independentes. Não se trata de padrão-ouro externo.
 
@@ -151,69 +159,120 @@ Na amostra preditiva: $N_1=11.027$, $N_0=2.571$, totalizando $13.598$ registros;
 
 As **12 variáveis preditoras** descritas são idade, sexo, raça/cor, escolaridade, UF, situação de trabalho, terceirização, grande grupo CBO, grupo CID-10, consumo de álcool, uso de drogas e tabagismo. O TCC descreve prevenção de vazamento de dados e ajuste das transformações exclusivamente no treino.
 
+
 ## 5. Formulação matemática dos modelos
 
-Esta seção registra **fundamentos dos algoritmos utilizados**, não prova que cada hiperparâmetro teórico tenha sido ativado no notebook. Configurações reais exigem inspeção da execução.
+Foram considerados quatro algoritmos supervisionados para a classificação binária dos desfechos registrados no SINAN: Regressão Logística (LR), Random Forest (RF), XGBoost e LightGBM.
+
+As expressões a seguir apresentam os fundamentos matemáticos desses métodos. As configurações específicas de treinamento e os hiperparâmetros efetivamente utilizados devem ser consultados no notebook da pesquisa.
 
 ### 5.1 Regressão Logística (LR)
 
-$$
-\operatorname{logit}(p_i)=\log\frac{p_i}{1-p_i}
-=\beta_0+\sum_{j=1}^p\beta_jx_{ij},
-\qquad
-p_i=\frac{1}{1+\exp(-\eta_i)}.
-$$
+A Regressão Logística estima a probabilidade de ocorrência do desfecho binário por meio da transformação logit:
 
-A perda logarítmica binária é:
+```math
+\mathrm{logit}(p_i) =
+\ln\left(\frac{p_i}{1-p_i}\right)
+= \beta_0 + \sum_{j=1}^{p}\beta_j x_{ij}
+```
 
-$$
-\mathcal L_{\log}=
--\frac1n\sum_{i=1}^n
-\left[y_i\log(\hat p_i)+(1-y_i)\log(1-\hat p_i)\right].
-$$
+O preditor linear é definido por:
+
+```math
+\eta_i = \beta_0 + \sum_{j=1}^{p}\beta_j x_{ij}
+```
+
+A probabilidade estimada é obtida pela função logística:
+
+```math
+\hat{p}_i = \frac{1}{1+\exp(-\eta_i)}
+```
+
+Uma função de perda utilizada no treinamento da classificação logística binária é a entropia cruzada:
+
+```math
+L_{\mathrm{log}} =
+-\frac{1}{n}\sum_{i=1}^{n}
+\left[
+y_i\ln(\hat{p}_i)
++
+(1-y_i)\ln(1-\hat{p}_i)
+\right]
+```
+
+Nessas expressões, `y_i` representa o desfecho observado, `p_i` a probabilidade modelada, `x_ij` o valor da variável preditora `j` para a observação `i`, e `beta_j` os coeficientes do modelo.
 
 ### 5.2 Random Forest (RF)
 
-A impureza de Gini de um nó $S$ é:
+O Random Forest combina múltiplas árvores de decisão construídas com aleatoriedade na seleção de observações e variáveis.
 
-$$
-G(S)=1-\sum_{k=1}^K p_k^2.
-$$
+Na classificação, uma das medidas de impureza utilizadas para avaliar divisões é o índice de Gini:
 
-Uma floresta agrega as probabilidades das árvores:
+```math
+G(S) = 1-\sum_{k=1}^{K}p_k^2
+```
 
-$$
-\hat p_{\mathrm{RF}}(\mathbf x)=
-\frac1B\sum_{b=1}^B\hat p_b(\mathbf x).
-$$
+Em que `p_k` representa a proporção de observações da classe `k` no nó `S`.
+
+A probabilidade estimada pela floresta pode ser representada pela média das probabilidades fornecidas pelas árvores:
+
+```math
+\hat{p}_{RF}(x) =
+\frac{1}{B}\sum_{b=1}^{B}\hat{p}_b(x)
+```
+
+Em que `B` representa o número de árvores e `p_b` a probabilidade estimada pela árvore `b`.
 
 ### 5.3 XGBoost
 
-O modelo aditivo de árvores é:
+O XGBoost é um algoritmo de *gradient boosting* que constrói um modelo aditivo de árvores, no qual cada nova árvore contribui para corrigir os erros da composição anterior.
 
-$$
-F_M(\mathbf x)=F_0(\mathbf x)+\sum_{m=1}^M\eta f_m(\mathbf x).
-$$
+Uma representação do modelo aditivo é:
 
-Uma forma da penalização de complexidade é:
+```math
+F_M(x) = F_0(x) + \sum_{m=1}^{M}\eta f_m(x)
+```
 
-$$
-\Omega(f)=\gamma T+\frac{\lambda}{2}\sum_{j=1}^T w_j^2.
-$$
+Em que `F_0` representa a predição inicial, `f_m` a contribuição da árvore `m`, `M` o número de etapas de boosting e `eta` a taxa de aprendizado.
 
-A aproximação de segunda ordem usa gradiente e Hessiana da perda em relação ao escore bruto:
+Uma forma da penalização de complexidade das árvores é:
 
-$$
-g_i=\frac{\partial\ell(y_i,F_i)}{\partial F_i},
-\qquad
-h_i=\frac{\partial^2\ell(y_i,F_i)}{\partial F_i^2}.
-$$
+```math
+\Omega(f) =
+\gamma T + \frac{\lambda}{2}\sum_{j=1}^{T}w_j^2
+```
 
-Essas expressões caracterizam o método; valores de `gamma`, `reg_lambda`, profundidade, taxa de aprendizado e número de árvores **não estão verificados neste documento**.
+Em que `T` é o número de folhas, `w_j` é o peso associado à folha `j`, `gamma` penaliza a complexidade estrutural e `lambda` controla a regularização quadrática.
+
+O XGBoost utiliza uma aproximação de segunda ordem da função de perda, considerando gradientes e derivadas segundas em relação aos escores brutos:
+
+```math
+g_i =
+\frac{\partial \ell(y_i,F_i)}{\partial F_i}
+```
+
+```math
+h_i =
+\frac{\partial^2 \ell(y_i,F_i)}{\partial F_i^2}
+```
+
+Essas expressões caracterizam o algoritmo. Os valores efetivamente utilizados para regularização, profundidade das árvores, taxa de aprendizado e número de estimadores devem ser verificados no código executado.
 
 ### 5.4 LightGBM
 
-Também usa boosting aditivo, com estratégias computacionais específicas de construção das árvores e crescimento *leaf-wise*. Sua presença na comparação empírica não significa que todos os recursos opcionais da biblioteca tenham sido utilizados.
+O LightGBM também pertence à família dos algoritmos de *gradient boosting* baseados em árvores de decisão.
+
+Sua implementação utiliza estratégias computacionais voltadas à eficiência, incluindo construção de histogramas e crescimento das árvores orientado por folhas (*leaf-wise*).
+
+Assim como no XGBoost, a predição é construída de forma aditiva:
+
+```math
+F_M(x) = F_0(x) + \sum_{m=1}^{M}\eta f_m(x)
+```
+
+A presença do LightGBM na comparação empírica não implica que todos os recursos opcionais da biblioteca tenham sido ativados.
+
+A avaliação comparativa dos quatro modelos foi conduzida por validação temporal, com resultados apresentados na Seção 6.
 
 ## 6. Validação e resultados
 
@@ -231,23 +290,11 @@ Desenvolvimento: **9.130** registros (2014–2023). Predições temporais *out-o
 
 ### 6.2 Métricas
 
-$$
-\mathrm{Sensibilidade}=\frac{TP}{TP+FN},
-\qquad
-\mathrm{Especificidade}=\frac{TN}{TN+FP}.
-$$
+$$\mathrm{Sensibilidade}=\frac{TP}{TP+FN},\qquad \mathrm{Especificidade}=\frac{TN}{TN+FP}.$$
 
-$$
-\mathrm{Precisão}=\frac{TP}{TP+FP},
-\qquad
-F_1=2\frac{\mathrm{Precisão}\,\mathrm{Sensibilidade}}
-{\mathrm{Precisão}+\mathrm{Sensibilidade}}.
-$$
+$$\mathrm{Precisão}=\frac{TP}{TP+FP},\qquad F_1=2\frac{\mathrm{Precisão}\,\mathrm{Sensibilidade}} {\mathrm{Precisão}+\mathrm{Sensibilidade}}.$$
 
-$$
-\mathrm{Acurácia\ balanceada}=
-\frac{\mathrm{Sensibilidade}+\mathrm{Especificidade}}{2}.
-$$
+$$\mathrm{Acurácia\ balanceada} = \frac{\mathrm{Sensibilidade}+\mathrm{Especificidade}}{2}. $$
 
 ROC-AUC e PR-AUC foram consideradas conjuntamente. A interpretação da PR-AUC depende também da prevalência da classe positiva.
 
@@ -266,13 +313,7 @@ A tabela usa os valores do TCC anexado; o README anterior informava PR-AUC de 0,
 
 As diferenças de métricas entre LR e XGBoost foram calculadas nas **mesmas 6.791 observações OOF**, com reamostragem pareada e estratificação por ano.
 
-$$
-\Delta_{\mathrm{ROC}}=\mathrm{ROC\!-\!AUC}_{LR}
--\mathrm{ROC\!-\!AUC}_{XGB},
-\qquad
-\Delta_{\mathrm{PR}}=\mathrm{PR\!-\!AUC}_{LR}
--\mathrm{PR\!-\!AUC}_{XGB}.
-$$
+$$ \Delta_{\mathrm{ROC}}=\mathrm{ROC\!-\!AUC}_{LR} -\mathrm{ROC\!-\!AUC}_{XGB},\qquad \Delta_{\mathrm{PR}}=\mathrm{PR\!-\!AUC}_{LR}-\mathrm{PR\!-\!AUC}_{XGB}.$$
 
 Resultados descritos no README anterior e no histórico analítico da pesquisa (conferir no notebook): $\Delta_{\mathrm{ROC}}=0,0073$, IC95% $[-0,0036;\ 0,0183]$; $\Delta_{\mathrm{PR}}=0,0004$, IC95% $[-0,0043;\ 0,0049]$. Como os ICs incluem zero, **não foi demonstrada superioridade estatística da LR sobre XGBoost** nessas comparações.
 
@@ -291,37 +332,88 @@ O XGBoost teve maior discriminação em 2024; a escolha da LR como modelo princi
 
 Para um limiar $t$:
 
-$$
-\hat Y_i(t)=\mathbf 1[\hat p_i\ge t],
-\qquad
-J(t)=\mathrm{Sens}(t)+\mathrm{Esp}(t)-1.
-$$
+$$\hat Y_i(t)=\mathbf 1[\hat p_i\ge t],\qquad J(t)=\mathrm{Sens}(t)+\mathrm{Esp}(t)-1.$$
 
 O README anterior documenta seleção aproximada de **$t^*=0,88$** nas predições OOF pelo índice de Youden e aplicação fixa nos períodos posteriores. **Esse limiar não é um corte clínico** e sua execução precisa ser reconciliada com as tabelas finais do TCC.
 
+
 ## 7. Inferência estatística
 
-A análise inferencial foi separada da seleção preditiva e utilizou **13.533 casos completos** ($N_1=10.976$, $N_0=2.557$), com regressão logística multivariável e erros-padrão robustos **HC3**.
+A análise inferencial foi conduzida separadamente da comparação preditiva dos algoritmos. Foram utilizados **13.533 casos completos**, dos quais **10.976** pertenciam à classe positiva e **2.557** à classe negativa.
 
-$$
-\operatorname{logit}(p_i)=\beta_0+\sum_j\beta_jX_{ij},
-\qquad
-OR_j=\exp(\beta_j).
-$$
+Foi ajustado um modelo de Regressão Logística multivariável, com estimação de erros-padrão robustos do tipo **HC3**.
 
-Com erro-padrão robusto, o IC aproximado de 95% para uma razão de chances é:
+### 7.1 Especificação do modelo
 
-$$
-IC_{95\%}(OR_j)=
+A relação entre as variáveis explicativas e a probabilidade do desfecho foi representada pela função logit:
+
+```math
+\mathrm{logit}(p_i) =
+\beta_0 + \sum_{j=1}^{p}\beta_j X_{ij}
+```
+
+A probabilidade correspondente é:
+
+```math
+p_i =
+\frac{1}{1+\exp\left(-\beta_0-\sum_{j=1}^{p}\beta_j X_{ij}\right)}
+```
+
+Em que `p_i` representa a probabilidade do desfecho para a observação `i`, `X_ij` representa a variável explicativa `j` e `beta_j` corresponde ao respectivo coeficiente.
+
+### 7.2 Razões de chances e intervalos de confiança
+
+Os coeficientes da Regressão Logística foram transformados em razões de chances ajustadas (*adjusted odds ratios*, ORa):
+
+```math
+OR_j = \exp(\beta_j)
+```
+
+O intervalo de confiança aproximado de 95% foi obtido pela transformação exponencial dos limites calculados na escala logit, utilizando o erro-padrão robusto HC3:
+
+```math
+IC_{95\%}(OR_j) =
 \left[
-e^{\hat\beta_j-1,96\,SE_{HC3}(\hat\beta_j)},
-e^{\hat\beta_j+1,96\,SE_{HC3}(\hat\beta_j)}
-\right].
-$$
+\exp\left(\hat{\beta}_j - 1.96\,SE_{HC3}(\hat{\beta}_j)\right),
+\exp\left(\hat{\beta}_j + 1.96\,SE_{HC3}(\hat{\beta}_j)\right)
+\right]
+```
 
-Foram examinadas formas linear, quadrática e flexível (*splines*) para idade. A especificação quadrática foi escolhida por ajuste e parcimônia. O máximo ajustado foi relatado em aproximadamente **47,6 anos**, sem interpretação como ponto de corte clínico.
+Nessa expressão, `SE_HC3` representa o erro-padrão robusto do coeficiente estimado.
 
-Exemplos de OR ajustadas documentadas no README original: sexo masculino (1,216), raça/cor parda (1,324), raça/cor preta (1,493), grupo CID F3 versus F4 (2,257) e uso de drogas registrado como “Sim” (3,699). Verificar referências, ICs e codificação na tabela [`bloco41_tabela_modelo_inferencial_TCC.csv`](bloco41_tabela_modelo_inferencial_TCC.csv) antes de citar valores isolados.
+### 7.3 Especificação da idade
+
+Foram examinadas formas funcionais linear, quadrática e flexível (*splines*) para a variável idade.
+
+A especificação quadrática foi selecionada considerando critérios de ajuste e parcimônia.
+
+O máximo ajustado da relação modelada foi relatado em aproximadamente **47,6 anos**. Esse resultado descreve o comportamento estimado da associação no modelo e não deve ser interpretado como ponto de corte clínico.
+
+### 7.4 Associações estimadas
+
+Entre os resultados apresentados na análise multivariável, destacam-se as seguintes razões de chances ajustadas:
+
+| Variável | OR ajustada |
+|---|---:|
+| Sexo masculino | 1,216 |
+| Raça/cor parda | 1,324 |
+| Raça/cor preta | 1,493 |
+| Grupo CID F3 versus F4 | 2,257 |
+| Uso de drogas registrado como "Sim" | 3,699 |
+
+As categorias de referência, os intervalos de confiança e os valores de significância devem ser consultados na tabela de resultados inferenciais:
+
+[bloco41_tabela_modelo_inferencial_TCC.csv](https://github.com/KymieSaito/tcc-sinan-riscos-psicossociais/blob/main/bloco41_tabela_modelo_inferencial_TCC.csv)
+
+### 7.5 Interpretação e limitações
+
+As razões de chances ajustadas representam associações condicionais às demais variáveis incluídas no modelo.
+
+Uma OR superior a 1 indica maiores chances do desfecho em relação à categoria de referência, enquanto uma OR inferior a 1 indica menores chances, mantidas as demais condições do modelo.
+
+**A razão de chances não equivale ao risco relativo nem à probabilidade de ocorrência do desfecho.**
+
+Por se tratar de análise observacional baseada em registros secundários, as associações estimadas não devem ser interpretadas como evidências de causalidade.
 
 **OR não é risco relativo nem probabilidade; associações observacionais não estabelecem efeitos causais.**
 
